@@ -1,1 +1,10 @@
 <p>dietas works!</p>
+
+<!-- Aquí se comprueba el rol para saber qué pantalla mostrar. Si el rol se cambia una vez mostrada la pantalla, no tiene efecto -->
+<div>
+    @if (rolDeUsuario === 'entrenador') {
+        <p>Eres un entrenador</p>
+    } @else if (rolDeUsuario === 'cliente') {
+        <p>Eres un cliente</p>
+    }
+</div>

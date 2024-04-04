@@ -27,7 +27,8 @@ export class UsuariosService {
         apellido1: obj.usuario.apellido1,
         apellido2: obj.usuario.apellido2,
         email: obj.usuario.email,
-        roles: obj.usuario.administrador?[{rol: Rol.ADMINISTRADOR}]:[],
+        // Aquí asigno todos los roles al administrador -> puede acceder a todas las vistas
+        roles: obj.usuario.administrador?[{rol: Rol.ADMINISTRADOR}, {rol: Rol.ENTRENADOR}, {rol: Rol.CLIENTE}, {rol: Rol.GERENTE}]:[],
         jwt: obj.jwt
       };
     }));
@@ -45,6 +46,7 @@ export class UsuariosService {
 
   }
 
+  // Esta función sospecho que sirve para el tema de asignación de roles, pero no sé como funciona
   private completarConRoles(usuarioSesion: UsuarioSesion): Observable<UsuarioSesion> {
     // TODO: acceder a lo sotros servicios (o simular) para completar con los roles necesarios
     return of(usuarioSesion);
