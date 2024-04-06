@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { UsuariosService } from '../services/usuarios.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-dietas',
   standalone: true,
-  imports: [],
+  imports: [AppComponent],
   templateUrl: './dietas.component.html',
   styleUrl: './dietas.component.css'
 })
@@ -15,6 +16,8 @@ usuariosService (es un getter de usuarios.service.ts). Esto devuelve un objeto d
 Rol (login.ts). Ese es el que nos interesa para saber qué pantalla mostrar. */
 export class DietasComponent {
   _rolDeUsuario?: String;
+  nuevaDieta: Dieta = new Dieta(); // Instancia de Dieta para el formulario
+
   constructor(private usuariosService: UsuariosService) {
     const usuarioSesion = this.usuariosService.rolCentro;
     if (usuarioSesion) this._rolDeUsuario = usuarioSesion.rol;
@@ -24,3 +27,25 @@ export class DietasComponent {
     return this._rolDeUsuario;
   }
 }
+export class Dieta {
+  nombre: string;
+  descripcion: string;
+  observaciones: string;
+  objetivo: string;
+  duracionDias: number; 
+  alimentos: any[]; 
+  recomendaciones: string;
+  id: number; 
+
+  constructor() {
+    this.nombre = '';
+    this.descripcion = '';
+    this.observaciones = '';
+    this.objetivo = '';
+    this.duracionDias = 0;
+    this.alimentos = [];
+    this.recomendaciones = '';
+    this.id = 0;
+  }
+}
+

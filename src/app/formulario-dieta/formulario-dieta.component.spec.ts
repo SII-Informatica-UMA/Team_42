@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import { DietasComponent } from './dietas.component';
+import { FormularioDietaComponent } from './formulario-dieta.component';
 
-describe('DietasComponent', () => {
-  let component: DietasComponent;
-  let fixture: ComponentFixture<DietasComponent>;
+describe('FormularioDietaComponent', () => {
+  let component: FormularioDietaComponent;
+  let fixture: ComponentFixture<FormularioDietaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DietasComponent]
+      imports: [FormularioDietaComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(DietasComponent);
+    fixture = TestBed.createComponent(FormularioDietaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

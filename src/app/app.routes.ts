@@ -5,6 +5,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ListadoUsuarioComponent } from './listado-usuario/listado-usuario.component';
 import { DietasComponent } from './dietas/dietas.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { FormularioDietaComponent } from './formulario-dieta/formulario-dieta.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,9 @@ export const routes: Routes = [
   {
     path: 'dietas',
     component: DietasComponent
+  }, 
+  {
+    path: 'formulario-dietas',
+    component: FormularioDietaComponent
   }
 ];

@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { UsuariosService } from './services/usuarios.service';
 import { Rol } from './entities/login';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-root',
