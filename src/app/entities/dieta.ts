@@ -9,7 +9,7 @@ export interface Dieta {
     id: number;
 }
 
-export class dietaImplm implements Dieta {
+export class DietaImpl implements Dieta {
     nombre: String;
     descripcion: String;
     observaciones: String;
