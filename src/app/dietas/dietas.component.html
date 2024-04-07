@@ -1,6 +1,8 @@
 <div>
   @if (rolDeUsuario === 'entrenador') {
     <p>Eres un entrenador</p>
+    <a [routerLink]="'/formulario-dietas'">Formulario (solo administradores)</a>
+    <router-outlet />
   } @else if (rolDeUsuario === 'cliente') {
     <p>Eres un cliente</p>
   }

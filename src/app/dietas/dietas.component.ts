@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { UsuariosService } from '../services/usuarios.service';
 import { AppComponent } from '../app.component';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dietas',
   standalone: true,
-  imports: [AppComponent],
+  imports: [AppComponent, RouterOutlet, RouterLink],
   templateUrl: './dietas.component.html',
   styleUrl: './dietas.component.css'
 })
@@ -28,13 +30,13 @@ export class DietasComponent {
   }
 }
 export class Dieta {
-  nombre: string;
-  descripcion: string;
-  observaciones: string;
-  objetivo: string;
+  nombre: String;
+  descripcion: String;
+  observaciones: String;
+  objetivo: String;
   duracionDias: number; 
-  alimentos: any[]; 
-  recomendaciones: string;
+  alimentos: String[]; 
+  recomendaciones: String;
   id: number; 
 
   constructor() {
