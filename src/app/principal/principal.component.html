@@ -1,5 +1,10 @@
 <h4>Página principal</h4>
 <div>
-    <a [routerLink]="'/usuarios'" style="display: block">Gestión de usuarios (solo administradores)</a>
-    <a [routerLink]="'/listadoDietas'">Formulario (solo administradores)</a>
+    <a type="button" class="btn btn-outline-primary"[routerLink]="'/usuarios'" >Gestión de usuarios (solo administradores)</a>
+    <!--
+        comento esto porque no tiene sentido que algo relacionado con dietas este en el home.
+        Lo he metido en dietas.component.html para visualizar solamente en caso de ser administrador
+        <a [routerLink]="'/listadoDietas'">Formulario (solo administradores)</a>
+    -->
+    
 </div>

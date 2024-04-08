@@ -13,12 +13,16 @@ import { CommonModule } from '@angular/common';
 })
 export class FormularioDietaComponent {
   accion?: "Añadir" | "Editar";
-  _dieta: Dieta = new DietaImpl; // {nombre: '', descripcion: '', observaciones: '', objetivo: '', duracionDias: 0, alimentos: [], recomendaciones: '', id: 0}
+  _dieta: Dieta = new DietaImpl(); // {nombre: '', descripcion: '', observaciones: '', objetivo: '', duracionDias: 0, alimentos: [], recomendaciones: '', id: 0}
 
   constructor(public modal: NgbActiveModal) { }
 
   get dieta() {
     return this._dieta;
+  }
+
+  set dieta(dieta: Dieta){
+    this._dieta = dieta;
   }
 
   guardarDieta(): void {

@@ -38,7 +38,7 @@ export const routes: Routes = [
     component: ListadoDietaComponent // AÑADIDO A PRINCIPAL.COMPONENT.HTML
   },
   {
-    path: 'formulario-dietas',
+    path: 'formulario-dieta',
     component: FormularioDietaComponent
   }
 ];

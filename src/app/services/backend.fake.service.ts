@@ -117,24 +117,24 @@ export class BackendFakeService {
     return of(usuario);
   }
 
-  /* postDieta(dieta: Dieta): Observable<Dieta> {
-    let u = this.dietas.find(d => d.email == usuario.email);
-    if (!usuario.email) {
-      return new Observable<Usuario>(observer => {
-        observer.error('El email es obligatorio');
+   postDieta(dieta: Dieta): Observable<Dieta> {
+    let u = this.dietas.find(d => d.nombre == dieta.nombre);
+    if (!dieta.nombre) {
+      return new Observable<Dieta>(observer => {
+        observer.error('El nombre es obligatorio');
       });
     }
     if (u) {
-      return new Observable<Usuario>(observer => {
-        observer.error('El usuario ya existe');
+      return new Observable<Dieta>(observer => {
+        observer.error('Ya hay una dieta con ese nombre');
       });
     }
 
-    usuario.id = this.usuarios.map(u => u.id).reduce((a, b) => Math.max(a, b)) + 1;
-    this.usuarios.push(usuario);
-    this.guardarUsuariosEnLocalStorage();
-    return of(usuario);
-  } */
+    dieta.id = this.dietas.map(u => u.id).reduce((a, b) => Math.max(a, b)) + 1;
+    this.dietas.push(dieta);
+    this.guardarDietasEnLocalStorage();
+    return of(dieta);
+  } 
 
   private guardarUsuariosEnLocalStorage() {
     localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
@@ -177,6 +177,8 @@ export class BackendFakeService {
     this.guardarDietasEnLocalStorage();
     return of(d);
   }
+
+  
 
   deleteUsuario(id: number): Observable<void> {
     let i = this.usuarios.findIndex(u => u.id == id);

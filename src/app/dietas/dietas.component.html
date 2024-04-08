@@ -1,10 +1,13 @@
 <div>
   @if (rolDeUsuario === 'entrenador') {
     <p>Eres un entrenador</p>
-    <a [routerLink]="'/formulario-dietas'">Formulario (solo administradores)</a>
+    <button type="button" class="btn btn-outline-primary bi bi-plus-lg" [routerLink]="'/formulario-dieta'" (click)="aniadirDieta()">Formulario (solo entrenadores)</button>
     <router-outlet />
   } @else if (rolDeUsuario === 'cliente') {
     <p>Eres un cliente</p>
+  } @else if(rolDeUsuario === 'administrador'){
+    <a type="button" class="btn btn-outline-primary"[routerLink]="'/listadoDietas'">Listado (solo administradores)</a>
   }
+  
 </div>
 
