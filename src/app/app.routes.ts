@@ -6,6 +6,7 @@ import { ListadoUsuarioComponent } from './listado-usuario/listado-usuario.compo
 import { DietasComponent } from './dietas/dietas.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { FormularioDietaComponent } from './formulario-dieta/formulario-dieta.component';
+import { ListadoDietaComponent } from './listado-dieta/listado-dieta.component';
 
 export const routes: Routes = [
   {
@@ -32,6 +33,10 @@ export const routes: Routes = [
     path: 'dietas',
     component: DietasComponent
   }, 
+  {
+    path: 'listadoDietas',
+    component: ListadoDietaComponent // AÑADIDO A PRINCIPAL.COMPONENT.HTML
+  },
   {
     path: 'formulario-dietas',
     component: FormularioDietaComponent

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
+import { Dieta, DietaImpl } from '../entities/dieta';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dieta } from '../dietas/dietas.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { dietaImplm } from '../entities/dieta';
 
 @Component({
   selector: 'app-formulario-dieta',
@@ -14,7 +13,7 @@ import { dietaImplm } from '../entities/dieta';
 })
 export class FormularioDietaComponent {
   accion?: "Añadir" | "Editar";
-  _dieta: Dieta = new dietaImplm; // {nombre: '', descripcion: '', observaciones: '', objetivo: '', duracionDias: 0, alimentos: [], recomendaciones: '', id: 0}
+  _dieta: Dieta = new DietaImpl; // {nombre: '', descripcion: '', observaciones: '', objetivo: '', duracionDias: 0, alimentos: [], recomendaciones: '', id: 0}
 
   constructor(public modal: NgbActiveModal) { }
 

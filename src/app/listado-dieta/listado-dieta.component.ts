@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Dieta, DietaImpl } from '../entities/dieta';
 import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usuario.component';
+import { DietasService } from '../services/dietas.service';
 
 
 @Component({
@@ -14,4 +15,8 @@ import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usu
 })
 export class ListadoDietaComponent {
   dietas: Dieta [] = [];
+
+  constructor(private dietasService: DietasService, private modalService: NgbModal) {
+    
+  }
 }
