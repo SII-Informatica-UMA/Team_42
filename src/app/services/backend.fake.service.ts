@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { Usuario } from "../entities/usuario";
+import { Dieta } from "../entities/dieta";
 import { SECRET_JWT } from "../config/config";
 import { from } from "rxjs";
 import * as jose from 'jose';
@@ -29,11 +30,37 @@ const usuariosC: Usuario [] = [
   },
 ];
 
+const dietasC: Dieta[] = [
+  {
+    nombre: 'Dieta de Volumen',
+    descripcion: 'Dieta centrada en la ganancia de masa magra muscular',
+    observaciones: 'Alta ingesta calórica con alimentos ricos en proteínas y carbohidratos, ingesta moderada de alimentos ricos en grasas y rutina de fuerza de apoyo',
+    objetivo: 'Orientada a atletas enfocados en entrenamientos de fuerza',
+    duracionDias: 60,
+    alimentos:  [
+      "Batido de proteínas con leche, plátano, mantequilla de cacahuete y proteína en polvo",
+      "Pollo a la parrilla con arroz integral y verduras al vapor",
+      "Salmón al horno con batata asada y espárragos",
+      "Tortilla de huevo entero con espinacas, champiñones y queso",
+      "Ensalada de garbanzos con aguacate, tomate, pepino y vinagreta de aceite de oliva",
+      "Ternera magra salteada con brócoli, pimientos y salsa de soja",
+      "Pasta integral con salsa de carne magra y vegetales mixtos",
+      "Batata al horno con pollo desmenuzado, frijoles negros, maíz y aguacate",
+      "Batido de avena con leche, plátano, proteína en polvo y una cucharada de mantequilla de almendra",
+      "Pechuga de pavo a la plancha con quinoa cocida y espárragos a la parrilla"
+    ],
+    recomendaciones: "Priorizar entrenamientos de alto volumen y carga máxima igual o muy próxima al 1 RM",
+    id: 0,
+  }
+    
+]
+
 @Injectable({
   providedIn: 'root'
 })
 export class BackendFakeService {
   private usuarios: Usuario [];
+  private dietas: Dieta [];
   private forgottenPasswordTokens;
 
   constructor() {
@@ -42,6 +69,13 @@ export class BackendFakeService {
       this.usuarios = JSON.parse(_usuarios);
     } else {
       this.usuarios = [...usuariosC];
+    }
+
+    let _dietas = localStorage.getItem('dietas');
+    if(_dietas) {
+      this.dietas = JSON.parse(_dietas);
+    } else {
+      this.dietas = [...dietasC];
     }
 
     let _forgottenPasswordTokens = localStorage.getItem('forgottenPasswordTokens');
@@ -54,6 +88,10 @@ export class BackendFakeService {
 
   getUsuarios(): Observable<Usuario[]> {
     return of(this.usuarios);
+  }
+
+  getDietas(): Observable<Dieta[]> {
+    return of(this.dietas);
   }
 
   postUsuario(usuario: Usuario): Observable<Usuario> {
@@ -79,8 +117,31 @@ export class BackendFakeService {
     return of(usuario);
   }
 
+   postDieta(dieta: Dieta): Observable<Dieta> {
+    let u = this.dietas.find(d => d.nombre == dieta.nombre);
+    if (!dieta.nombre) {
+      return new Observable<Dieta>(observer => {
+        observer.error('El nombre es obligatorio');
+      });
+    }
+    if (u) {
+      return new Observable<Dieta>(observer => {
+        observer.error('Ya hay una dieta con ese nombre');
+      });
+    }
+
+    dieta.id = this.dietas.map(u => u.id).reduce((a, b) => Math.max(a, b)) + 1;
+    this.dietas.push(dieta);
+    this.guardarDietasEnLocalStorage();
+    return of(dieta);
+  } 
+
   private guardarUsuariosEnLocalStorage() {
     localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
+  }
+
+  private guardarDietasEnLocalStorage() {
+    localStorage.setItem('dietas', JSON.stringify(this.dietas));
   }
 
   private guardarForgottenPasswordTokensEnLocalStorage() {
@@ -104,6 +165,21 @@ export class BackendFakeService {
     return of(u);
   }
 
+  putDieta(dieta: Dieta): Observable<Dieta> {
+    let d = this.dietas.find(d => d.id == dieta.id);
+    if (!d) {
+      return new Observable<Dieta>(observer => {
+        observer.error('La dieta no existe');
+      });
+    }
+
+    Object.assign(d, dieta);
+    this.guardarDietasEnLocalStorage();
+    return of(d);
+  }
+
+  
+
   deleteUsuario(id: number): Observable<void> {
     let i = this.usuarios.findIndex(u => u.id == id);
     if (i < 0) {
@@ -113,6 +189,18 @@ export class BackendFakeService {
     }
     this.usuarios.splice(i, 1);
     this.guardarUsuariosEnLocalStorage();
+    return of();
+  }
+
+  deleteDieta(id: number): Observable<void> {
+    let i = this.dietas.findIndex(d => d.id == id);
+    if (i < 0)  {
+      return new Observable<void>(observer => {
+        observer.error('La dieta no existe');
+      });
+    }
+    this.dietas.splice(i, 1);
+    this.guardarDietasEnLocalStorage();
     return of();
   }
 
