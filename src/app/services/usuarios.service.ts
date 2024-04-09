@@ -13,6 +13,7 @@ import { BackendService } from "./backend.service";
 })
 export class UsuariosService {
   _rolCentro?: RolCentro;
+  _id?: number;
 
   constructor(private backend: BackendFakeService) {}
 
@@ -71,8 +72,8 @@ export class UsuariosService {
     this._rolCentro = r;
   }
 
-  get id(): Number {
-    return this.id;
+  get id(): number | undefined {
+    return this._id;
   }
 
   getUsuarioSesion(): UsuarioSesion | undefined {
