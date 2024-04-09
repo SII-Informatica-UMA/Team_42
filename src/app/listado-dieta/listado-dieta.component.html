@@ -12,7 +12,8 @@
               <th>Observaciones</th>
               <th>Duración en días</th>
               <th>Recomendaciones</th>
-              <th>Id del entrenador</th>
+              <th>Id de la dieta</th>
+              <th>Id de los clientes asociados</th>
               <th></th>
             </tr>
           </thead>
@@ -25,6 +26,7 @@
               <td>{{dieta.duracionDias}}</td>
               <td>{{dieta.recomendaciones}}</td>
               <td>{{dieta.id}}</td>
+              <td>{{dieta.clientes}}</td>
               <td><button class="btn btn-sm btn-outline-primary m-1" (click)="editarDieta(dieta)"><i class="bi bi-pencil-fill"></i></button>
                 <button (click)="eliminarDieta(dieta.id)" class="btn btn-sm btn-outline-danger m-1"><i class="bi bi-trash-fill"></i></button></td>
             </tr>

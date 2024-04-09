@@ -51,7 +51,8 @@ const dietasC: Dieta[] = [
     ],
     recomendaciones: "Priorizar entrenamientos de alto volumen y carga máxima igual o muy próxima al 1 RM",
     id: 0,
-    idEntrenador: 0
+    idEntrenador: 0,
+    clientes: []
   }
     
 ]

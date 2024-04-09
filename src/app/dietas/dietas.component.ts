@@ -66,6 +66,7 @@ export class Dieta {
   recomendaciones: String;
   id: number; 
   idEntrenador: number;
+  clientes: number[];
 
   constructor() {
     this.nombre = '';
@@ -77,6 +78,7 @@ export class Dieta {
     this.recomendaciones = '';
     this.id = 0;
     this.idEntrenador = 0;
+    this.clientes = [];
   }
 }
 
