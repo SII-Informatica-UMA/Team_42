@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // Importa NgbModal
 import { FormularioDietaComponent } from '../formulario-dieta/formulario-dieta.component';
 import { DietasService } from '../services/dietas.service';
 import { DietaImpl } from '../entities/dieta';
+import { UsuarioSesion } from '../entities/login';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class DietasComponent {
     ref.componentInstance.accion = "Añadir";
     ref.componentInstance.dieta = new DietaImpl();
     ref.result.then((dieta: Dieta) => {
-      this.dietasService.aniadirDieta(dieta);
+      this.dietasService.aniadirDieta(this.usuariosService.id as number, dieta);
     }, (reason) => {});
   }
 }
@@ -64,6 +65,7 @@ export class Dieta {
   alimentos: String[]; 
   recomendaciones: String;
   id: number; 
+  idEntrenador: number;
 
   constructor() {
     this.nombre = '';
@@ -74,6 +76,7 @@ export class Dieta {
     this.alimentos = [];
     this.recomendaciones = '';
     this.id = 0;
+    this.idEntrenador = 0;
   }
 }
 

@@ -6,7 +6,7 @@ import { SECRET_JWT } from "../config/config";
 import { from } from "rxjs";
 import * as jose from 'jose';
 import { FRONTEND_URI } from "../config/config";
-
+import { UsuarioSesion } from "../entities/login"
 // Este servicio imita al backend pero utiliza localStorage para almacenar los datos
 
 const usuariosC: Usuario [] = [
@@ -51,6 +51,7 @@ const dietasC: Dieta[] = [
     ],
     recomendaciones: "Priorizar entrenamientos de alto volumen y carga máxima igual o muy próxima al 1 RM",
     id: 0,
+    idEntrenador: 0
   }
     
 ]
@@ -117,7 +118,7 @@ export class BackendFakeService {
     return of(usuario);
   }
 
-   postDieta(dieta: Dieta): Observable<Dieta> {
+   postDieta(idEntrenador: number, dieta: Dieta): Observable<Dieta> {
     let u = this.dietas.find(d => d.nombre == dieta.nombre);
     if (!dieta.nombre) {
       return new Observable<Dieta>(observer => {
@@ -131,6 +132,7 @@ export class BackendFakeService {
     }
 
     dieta.id = this.dietas.map(u => u.id).reduce((a, b) => Math.max(a, b)) + 1;
+    dieta.idEntrenador = idEntrenador;
     this.dietas.push(dieta);
     this.guardarDietasEnLocalStorage();
     return of(dieta);

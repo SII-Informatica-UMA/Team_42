@@ -15,7 +15,7 @@ export class DietasService {
 
   constructor(private backend: BackendFakeService) { }
 
-  getDietas(dieta: Dieta): Observable<Dieta[]> {
+  getDietas(): Observable<Dieta[]> {
     return this.backend.getDietas();
   }
 
@@ -27,7 +27,7 @@ export class DietasService {
     return this.backend.deleteDieta(id);
   }
 
-  aniadirDieta(dieta: Dieta): Observable<Dieta> {
-    return this.backend.postDieta(dieta);
+  aniadirDieta(id: number, dieta: Dieta): Observable<Dieta> {
+    return this.backend.postDieta(id, dieta);
   }
 }

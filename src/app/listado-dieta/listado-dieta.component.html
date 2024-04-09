@@ -1,1 +1,38 @@
-<p>listado-dieta works!</p>
+
+<div class="container">
+    <div class="row">
+      <div class="col-12" *ngIf="isAdministrador()">
+        <h1 class="text-center">Listado de dietas</h1>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Objetivo</th>
+              <th>Descripcion</th>
+              <th>Observaciones</th>
+              <th>Duración en días</th>
+              <th>Recomendaciones</th>
+              <th>Id del entrenador</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dieta of dietas" class="align-middle">
+              <td>{{dieta.nombre}}</td>
+              <td>{{dieta.objetivo}}</td>
+              <td>{{dieta.descripcion}} </td>
+              <td>{{dieta.observaciones}}</td>
+              <td>{{dieta.duracionDias}}</td>
+              <td>{{dieta.recomendaciones}}</td>
+              <td>{{dieta.id}}</td>
+              <td><button class="btn btn-sm btn-outline-primary m-1" (click)="editarDieta(dieta)"><i class="bi bi-pencil-fill"></i></button>
+                <button (click)="eliminarDieta(dieta.id)" class="btn btn-sm btn-outline-danger m-1"><i class="bi bi-trash-fill"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-outline-success bi bi-plus-lg" (click)="aniadirDieta()"></button>
+      </div>
+      <div class="col-12" *ngIf="!isAdministrador()">
+        <p class="alert alert-danger">No tiene permisos para ver este contenido.</p>
+    </div>
+  </div>
