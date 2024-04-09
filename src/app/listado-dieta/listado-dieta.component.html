@@ -2,6 +2,7 @@
 <div class="container">
     <div class="row">
       <div class="col-12" *ngIf="isAdministrador()">
+        <!-- LISTADO DE TODAS LAS DIETAS -->
         <h1 class="text-center">Listado de dietas</h1>
         <table class="table table-striped">
           <thead>
@@ -34,7 +35,44 @@
         </table>
         <button type="button" class="btn btn-outline-success bi bi-plus-lg" (click)="aniadirDieta()"></button>
       </div>
-      <div class="col-12" *ngIf="!isAdministrador()">
-        <p class="alert alert-danger">No tiene permisos para ver este contenido.</p>
-    </div>
+
+
+      <!-- DIETAS SEGÚN EL ID DEL CLIENTE -->
+      <div>
+        <br>
+        <br>
+        <p> Introduce el identificador del cliente del que quieres ver las dietas: </p>
+        <input type="number" #clienteId (change)="getDietasByClientId(clienteId.value)">
+        <div class="row">
+          <div class="col-12" *ngIf="isAdministrador()">
+            <h1 class="text-center">Listado de dietas</h1>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Objetivo</th>
+                  <th>Descripcion</th>
+                  <th>Observaciones</th>
+                  <th>Duración en días</th>
+                  <th>Recomendaciones</th>
+                  <th>Id de la dieta</th>
+                  <th>Id de los clientes asociados</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let dieta of dietasCliente" class="align-middle">
+                  <td>{{dieta.nombre}}</td>
+                  <td>{{dieta.objetivo}}</td>
+                  <td>{{dieta.descripcion}} </td>
+                  <td>{{dieta.observaciones}}</td>
+                  <td>{{dieta.duracionDias}}</td>
+                  <td>{{dieta.recomendaciones}}</td>
+                  <td>{{dieta.id}}</td>
+                  <td>{{dieta.clientes}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
   </div>

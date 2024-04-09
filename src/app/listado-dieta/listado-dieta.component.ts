@@ -17,6 +17,7 @@ import { Rol, UsuarioSesion } from '../entities/login';
 })
 export class ListadoDietaComponent {
   dietas: Dieta [] = [];
+  dietasCliente: Dieta [] = [];
 
   constructor(private dietasService: DietasService, private usuariosService: UsuariosService, private modalService: NgbModal) {
     this.actualizarDietas();
@@ -25,6 +26,15 @@ export class ListadoDietaComponent {
   actualizarDietas() {
     this.dietasService.getDietas().subscribe(dietas => {
       this.dietas = dietas;
+    });
+  }
+
+  getDietasByClientId(inputId: string) {
+    // Para evitar problemas con los tipos, ya que recogemos el valor desde el archivo html
+    // let inputValue: HTMLInputElement = document.getElementById('inputId') as HTMLInputElement;
+    // let numericValue: number = parseFloat(inputValue.value);
+    this.dietasService.getDietasByClientId(parseInt(inputId)).subscribe(dietas => {
+      this.dietasCliente = dietas;
     });
   }
 

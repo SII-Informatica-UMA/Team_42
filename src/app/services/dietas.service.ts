@@ -19,6 +19,10 @@ export class DietasService {
     return this.backend.getDietas();
   }
 
+  getDietasByClientId(idCliente: number): Observable<Dieta[]> {
+    return this.backend.getDietasByClientId(idCliente);
+  }
+
   editarDietas(dieta: Dieta): Observable<Dieta> {
     return this.backend.putDieta(dieta);
   }

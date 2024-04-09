@@ -52,9 +52,8 @@ const dietasC: Dieta[] = [
     recomendaciones: "Priorizar entrenamientos de alto volumen y carga máxima igual o muy próxima al 1 RM",
     id: 0,
     idEntrenador: 0,
-    clientes: []
-  }
-    
+    clientes: [0]
+  }, 
 ]
 
 @Injectable({
@@ -94,6 +93,20 @@ export class BackendFakeService {
 
   getDietas(): Observable<Dieta[]> {
     return of(this.dietas);
+  }
+
+  // Sacar las dientas por cliente
+  getDietasByClientId (idCliente: number): Observable<Dieta[]> {
+    // En esta lista almacenaremos todas las dietas del cliente
+    let dietasCliente: Dieta [] = [];
+    // Iteramos sobre todas las dietas que tenemos
+    this.dietas.forEach((dieta: Dieta) => {
+      // Vemos si nuestro cliente tiene esta dieta
+        if (dieta.clientes.includes(idCliente)) {
+          dietasCliente.push(dieta);
+        }
+    });
+    return of (dietasCliente);
   }
 
   postUsuario(usuario: Usuario): Observable<Usuario> {
