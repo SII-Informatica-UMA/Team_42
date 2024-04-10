@@ -7,6 +7,8 @@ export interface Dieta {
     alimentos: String[];
     recomendaciones: String;
     id: number;
+    idEntrenador: number;
+    clientes: number[];
 }
 
 export class DietaImpl implements Dieta {
@@ -18,6 +20,8 @@ export class DietaImpl implements Dieta {
     alimentos: String[];
     recomendaciones: String;
     id: number;
+    idEntrenador: number;
+    clientes: number[];
     
     constructor() {
         this.nombre = '';
@@ -28,5 +32,7 @@ export class DietaImpl implements Dieta {
         this.alimentos = [''];
         this.recomendaciones = '';
         this.id = 0;
+        this.idEntrenador = 0;
+        this.clientes = [];
     }
 }
