@@ -23,12 +23,6 @@ export class ListadoDietaComponent {
     this.actualizarDietas();
   }
 
-  actualizarDietasCliente() {
-    this.dietasService.getDietas().subscribe(dietas => {
-      this.dietas = dietas;
-    });
-  }
-
   actualizarDietas() {
     this.dietasService.getDietas().subscribe(dietas => {
       this.dietas = dietas;

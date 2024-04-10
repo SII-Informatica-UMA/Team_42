@@ -98,8 +98,9 @@ export class BackendFakeService {
   getDietasByClientId (idCliente: number): Observable<Dieta[]> {
     // En esta lista almacenaremos todas las dietas del cliente
     let dietasCliente: Dieta [] = [];
+    console.log('HOLA desde backend.service.ts');  
     // Si el usuario no estuviera logeado, la llamada original usaría -1 como parametro
-    if (idCliente != 1) {
+    if (idCliente != -1) {
       // Iteramos sobre todas las dietas que tenemos
       this.dietas.forEach((dieta: Dieta) => {
         // Vemos si nuestro cliente tiene esta dieta

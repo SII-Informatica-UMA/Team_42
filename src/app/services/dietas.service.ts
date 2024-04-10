@@ -20,6 +20,7 @@ export class DietasService {
   }
 
   getDietasByClientId(idCliente: number): Observable<Dieta[]> {
+    console.log('HOLA desde dietas.service.ts');
     return this.backend.getDietasByClientId(idCliente);
   }
 

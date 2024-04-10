@@ -7,7 +7,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // Importa NgbModal
 import { FormularioDietaComponent } from '../formulario-dieta/formulario-dieta.component';
 import { DietasService } from '../services/dietas.service';
 import { DietaImpl } from '../entities/dieta';
-import { UsuarioSesion } from '../entities/login';
+import { Rol, UsuarioSesion } from '../entities/login';
+
 
 
 @Component({
@@ -25,12 +26,14 @@ Rol (login.ts). Ese es el que nos interesa para saber qué pantalla mostrar. */
 export class DietasComponent {
   _rolDeUsuario?: String;
   nuevaDieta: Dieta = new Dieta(); // Instancia de Dieta para el formulario
+  dietasCliente: Dieta [] = [];
+
 
   //Le he añadido al constructor el dietasService para poder implementar la funcion de añadirDietas con el formulario
   
   constructor(private usuariosService: UsuariosService , private router: Router , private modalService: NgbModal , 
     private dietasService: DietasService
-  ) {
+) {
     const usuarioSesion = this.usuariosService.rolCentro;
     if (usuarioSesion) this._rolDeUsuario = usuarioSesion.rol;
   }
@@ -47,7 +50,7 @@ export class DietasComponent {
   }
   
   //metodo para añadir una dieta (la utilizo cuando se hace click para acceder al formulario de dietas)
-  aniadirDieta(): void{
+  aniadirDieta(): void {
     let ref = this.modalService.open(FormularioDietaComponent);
     ref.componentInstance.accion = "Añadir";
     ref.componentInstance.dieta = new DietaImpl();
@@ -55,7 +58,25 @@ export class DietasComponent {
       this.dietasService.aniadirDieta(this.usuariosService._id as number, dieta);
     }, (reason) => {});
   }
+
+  getDietasByClientId() {
+    console.log('HOLA desde dietas.component');
+    let clienteActual = this.usuarioSesion?.id;
+    if(typeof(clienteActual) == undefined) {
+      // Si el cliente no está logeado, usamos -1
+      clienteActual = -1;
+    }
+    this.dietasService.getDietasByClientId(clienteActual as number).subscribe(dietas => {
+      this.dietasCliente = dietas;
+    });
+  }
+
+  // Función necesaria para poder obtener el id del usuario logeado
+  get usuarioSesion() {
+    return this.usuariosService.getUsuarioSesion();
+  }
 }
+
 export class Dieta {
   nombre: String;
   descripcion: String;
