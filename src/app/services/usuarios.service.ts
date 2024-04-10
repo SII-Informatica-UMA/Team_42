@@ -29,7 +29,7 @@ export class UsuariosService {
         apellido2: obj.usuario.apellido2,
         email: obj.usuario.email,
         // Aquí asigno todos los roles al administrador -> puede acceder a todas las vistas
-        roles: obj.usuario.administrador?[{rol: Rol.ADMINISTRADOR}, {rol: Rol.ENTRENADOR}, {rol: Rol.CLIENTE}, {rol: Rol.GERENTE}]:[],
+        roles: obj.usuario.administrador ? [{rol: Rol.ADMINISTRADOR}, {rol: Rol.ENTRENADOR}, {rol: Rol.CLIENTE}, {rol: Rol.GERENTE}]:[{rol: Rol.CLIENTE}],
         jwt: obj.jwt
       };
     }));
@@ -40,6 +40,7 @@ export class UsuariosService {
       if (usuarioSesion.roles.length > 0) {
         this.rolCentro = usuarioSesion.roles[0];
       } else {
+        //this.rolCentro = usuarioSesion.roles[2];
         this.rolCentro = undefined;
       }
       return usuarioSesion;

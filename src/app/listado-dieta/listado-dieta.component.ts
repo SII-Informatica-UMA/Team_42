@@ -95,12 +95,12 @@ export class ListadoDietaComponent {
   }
 
   isEntrenador(): boolean {
-    console.log("Pregunta admin: "+this.rol);
+    console.log("Pregunta entrenador: "+this.rol);
     return this.rol?.rol == Rol.ENTRENADOR;
   }
 
   isCliente(): boolean {
-    console.log("Pregunta admin: "+this.rol);
+    console.log("Pregunta cliente: "+this.rol);
     return this.rol?.rol == Rol.CLIENTE;
   }
 }
