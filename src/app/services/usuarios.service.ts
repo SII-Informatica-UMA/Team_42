@@ -72,10 +72,6 @@ export class UsuariosService {
     this._rolCentro = r;
   }
 
-  get id(): number | undefined {
-    return this.id;
-  }
-
   getUsuarioSesion(): UsuarioSesion | undefined {
     const usuario = localStorage.getItem('usuario');
     return usuario ? JSON.parse(usuario) : undefined;

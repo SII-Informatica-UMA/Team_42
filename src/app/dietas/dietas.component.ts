@@ -52,7 +52,7 @@ export class DietasComponent {
     ref.componentInstance.accion = "Añadir";
     ref.componentInstance.dieta = new DietaImpl();
     ref.result.then((dieta: Dieta) => {
-      this.dietasService.aniadirDieta(this.usuariosService.id as number, dieta);
+      this.dietasService.aniadirDieta(this.usuariosService._id as number, dieta);
     }, (reason) => {});
   }
 }

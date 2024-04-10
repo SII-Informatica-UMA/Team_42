@@ -95,17 +95,19 @@ export class BackendFakeService {
     return of(this.dietas);
   }
 
-  // Sacar las dientas por cliente
   getDietasByClientId (idCliente: number): Observable<Dieta[]> {
     // En esta lista almacenaremos todas las dietas del cliente
     let dietasCliente: Dieta [] = [];
-    // Iteramos sobre todas las dietas que tenemos
-    this.dietas.forEach((dieta: Dieta) => {
-      // Vemos si nuestro cliente tiene esta dieta
+    // Si el usuario no estuviera logeado, la llamada original usaría -1 como parametro
+    if (idCliente != 1) {
+      // Iteramos sobre todas las dietas que tenemos
+      this.dietas.forEach((dieta: Dieta) => {
+        // Vemos si nuestro cliente tiene esta dieta
         if (dieta.clientes.includes(idCliente)) {
           dietasCliente.push(dieta);
         }
-    });
+      });
+    }
     return of (dietasCliente);
   }
 
