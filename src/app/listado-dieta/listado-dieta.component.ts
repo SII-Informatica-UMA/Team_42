@@ -80,4 +80,14 @@ export class ListadoDietaComponent {
     console.log("Pregunta admin: "+this.rol);
     return this.rol?.rol == Rol.ADMINISTRADOR;
   }
+
+  isEntrenador(): boolean {
+    console.log("Pregunta admin: "+this.rol);
+    return this.rol?.rol == Rol.ENTRENADOR;
+  }
+
+  isCliente(): boolean {
+    console.log("Pregunta admin: "+this.rol);
+    return this.rol?.rol == Rol.CLIENTE;
+  }
 }

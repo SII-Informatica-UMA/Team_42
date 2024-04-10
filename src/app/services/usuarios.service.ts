@@ -73,7 +73,7 @@ export class UsuariosService {
   }
 
   get id(): number | undefined {
-    return this._id;
+    return this.id;
   }
 
   getUsuarioSesion(): UsuarioSesion | undefined {

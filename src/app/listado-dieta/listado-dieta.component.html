@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="row">
-      <div class="col-12" *ngIf="isAdministrador()">
+      <div class="col-12" *ngIf="isAdministrador() || isEntrenador()">
         <!-- LISTADO DE TODAS LAS DIETAS -->
         <h1 class="text-center">Listado de dietas</h1>
         <table class="table table-striped">
