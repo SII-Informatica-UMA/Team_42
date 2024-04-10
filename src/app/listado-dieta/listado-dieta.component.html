@@ -39,9 +39,12 @@
   <div>
     <div class="row">
       <div class="col-12" *ngIf="isCliente()">
-        
-        <h1 class="text-center">Listado de dietas</h1>
-        <table class="table table-striped">
+        <div *ngIf="!dietaCliente">
+          <p class="text-center">El usuario no tiene ninguna dieta asignada.</p>
+        </div>
+        <div *ngIf="dietaCliente">
+          <h1 class="text-center">Dieta Asignada</h1>
+        <table class="table table-striped" >
           <thead>
             <tr>
               <th>Nombre</th>
@@ -50,24 +53,22 @@
               <th>Observaciones</th>
               <th>Duración en días</th>
               <th>Recomendaciones</th>
-              <th>Id de la dieta</th>
-              <th>Id de los clientes asociados</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let dieta of dietasCliente" class="align-middle">
-              <td>{{dieta.nombre}}</td>
-              <td>{{dieta.objetivo}}</td>
-              <td>{{dieta.descripcion}} </td>
-              <td>{{dieta.observaciones}}</td>
-              <td>{{dieta.duracionDias}}</td>
-              <td>{{dieta.recomendaciones}}</td>
-              <td>{{dieta.id}}</td>
-              <td>{{dieta.clientes}}</td>
+            <tr class="align-middle">
+              <td>{{dietaCliente.nombre}}</td>
+              <td>{{dietaCliente.objetivo}}</td>
+              <td>{{dietaCliente.descripcion}} </td>
+              <td>{{dietaCliente.observaciones}}</td>
+              <td>{{dietaCliente.duracionDias}}</td>
+              <td>{{dietaCliente.recomendaciones}}</td>
             </tr>
           </tbody>
         </table>
+        </div>
+        
       </div>
   </div>
 </div>

@@ -17,7 +17,7 @@ import { Rol, UsuarioSesion } from '../entities/login';
 })
 export class ListadoDietaComponent {
   dietas: Dieta [] = [];
-  dietasCliente: Dieta [] = [];
+  dietaCliente: Dieta | undefined;
 
   constructor(private dietasService: DietasService, private usuariosService: UsuariosService, private modalService: NgbModal) {
     this.actualizarDietas();
@@ -29,6 +29,20 @@ export class ListadoDietaComponent {
     });
   }
 
+  ngOnInit(): void {
+    let clienteActual = this.usuarioSesion?.id;
+    console.log('Cliente: '+clienteActual);
+    if(clienteActual == undefined) {
+      // Si el cliente no está logeado, usamos -1
+      clienteActual = -1;
+    }
+      this.dietasService.getDietaByUserId(clienteActual as number).subscribe(dieta => {
+      this.dietaCliente = dieta;
+      console.log('HOLA desde listado.dieta.component.ts');
+    });
+  }
+
+ /*
   getDietasByClientId() {
     let clienteActual = this.usuarioSesion?.id;
     if(typeof(clienteActual) == undefined) {
@@ -38,7 +52,7 @@ export class ListadoDietaComponent {
     this.dietasService.getDietasByClientId(clienteActual as number).subscribe(dietas => {
       this.dietasCliente = dietas;
     });
-  }
+  }*/
   
   // Función necesaria para poder obtener el id del usuario logeado
   get usuarioSesion() {

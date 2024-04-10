@@ -111,6 +111,11 @@ export class BackendFakeService {
     }
     return of (dietasCliente);
   }
+  // Función para obtener la dieta asignada a un usuario por su ID
+  getDietaByUserId(userId: number): Dieta {
+    const dieta = this.dietas.find(d => d.clientes && d.clientes.includes(userId));
+    return dieta as Dieta;
+  }
 
   postUsuario(usuario: Usuario): Observable<Usuario> {
     let u = this.usuarios.find(u => u.email == usuario.email);

@@ -19,6 +19,13 @@ export class DietasService {
     return this.backend.getDietas();
   }
 
+// Función para obtener la dieta asignada a un usuario por su ID
+getDietaByUserId(idCliente: number): Observable<Dieta> {
+  console.log('HOLA desde dietas.service.ts');
+  const dieta = this.backend.getDietaByUserId(idCliente);
+  return of(dieta);
+}
+
   getDietasByClientId(idCliente: number): Observable<Dieta[]> {
     console.log('HOLA desde dietas.service.ts');
     return this.backend.getDietasByClientId(idCliente);
