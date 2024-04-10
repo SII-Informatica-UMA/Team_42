@@ -69,4 +69,9 @@ export class ListadoDietaComponent {
     console.log("Pregunta admin: "+this.rol);
     return this.rol?.rol == Rol.ADMINISTRADOR;
   }
+
+  isEntrenador(): boolean {
+    console.log("Pregunta entrenador: "+this.rol);
+    return this.rol?.rol == Rol.ENTRENADOR;
+  }
 }

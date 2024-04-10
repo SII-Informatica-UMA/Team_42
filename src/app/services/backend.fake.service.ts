@@ -17,7 +17,8 @@ const usuariosC: Usuario [] = [
     apellido2: 'Admin',
     email: 'admin@uma.es',
     administrador: true,
-    password: 'admin'
+    password: 'admin',
+    dietaId: 0
   },
   {
     id: 2,
@@ -26,7 +27,8 @@ const usuariosC: Usuario [] = [
     apellido2: 'Ramos',
     email: 'antonio@uma.es',
     administrador: false,
-    password: '5678'
+    password: '5678',
+    dietaId: 1
   },
 ];
 
@@ -50,7 +52,7 @@ const dietasC: Dieta[] = [
       "Pechuga de pavo a la plancha con quinoa cocida y espárragos a la parrilla"
     ],
     recomendaciones: "Priorizar entrenamientos de alto volumen y carga máxima igual o muy próxima al 1 RM",
-    id: 0,
+    id: 1,
   }
     
 ]
@@ -212,6 +214,16 @@ export class BackendFakeService {
       });
     }
     return of(u);
+  }
+
+  getDietaById(id: number): Observable<Dieta> {
+    let d = this.dietas.find(d => d.id == id);
+    if (!d) {
+      return new Observable<Dieta>(observer => {
+        observer.error('La dieta no existe');
+      });
+    }
+    return of(d);
   }
 
   login(email: string, password: string): Observable<string> {

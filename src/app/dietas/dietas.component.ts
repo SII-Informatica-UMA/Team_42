@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // Importa NgbModal
 import { FormularioDietaComponent } from '../formulario-dieta/formulario-dieta.component';
 import { DietasService } from '../services/dietas.service';
 import { DietaImpl } from '../entities/dieta';
+import { Rol } from '../entities/login';
 
 
 @Component({
@@ -24,6 +25,7 @@ Rol (login.ts). Ese es el que nos interesa para saber qué pantalla mostrar. */
 export class DietasComponent {
   _rolDeUsuario?: String;
   nuevaDieta: Dieta = new Dieta(); // Instancia de Dieta para el formulario
+  dietas: Dieta [] = [];
 
   //Le he añadido al constructor el dietasService para poder implementar la funcion de añadirDietas con el formulario
   
@@ -31,6 +33,7 @@ export class DietasComponent {
     private dietasService: DietasService
   ) {
     const usuarioSesion = this.usuariosService.rolCentro;
+    this.actualizarDietas();
     if (usuarioSesion) this._rolDeUsuario = usuarioSesion.rol;
   }
 
@@ -40,6 +43,48 @@ export class DietasComponent {
     this.router.navigate(['/formulario-dieta']);
   }
   */
+
+  actualizarDietas() {
+    this.dietasService.getDietas().subscribe(dietas => {
+      this.dietas = dietas;
+    });
+  }
+
+  private dietaEditada(dieta: Dieta): void {
+    this.dietasService.editarDietas(dieta).subscribe(() => {
+      this.actualizarDietas();
+    });
+  }
+
+  editarDieta(dieta: Dieta): void {
+    let ref = this.modalService.open(FormularioDietaComponent);
+    ref.componentInstance.accion = "Editar";
+    ref.componentInstance.dieta = {...dieta};
+    ref.result.then((dieta: Dieta) => {
+      this.dietaEditada(dieta);
+    }, (reason) => {});
+  }
+
+  eliminarDieta(id: number): void {
+    this.dietasService.eliminarDieta(id).subscribe(() => {
+      this.actualizarDietas();
+    });
+  }
+  
+  // Estas dos funciones las he hecho basandome en listado-usario.component.ts. Creo que en realidad tendría más sentido poner los roles en servicios si lo vamos a usar en más componentes
+  private get rol() {
+    return this.usuariosService.rolCentro;
+  }
+
+  isAdministrador(): boolean {
+    console.log("Pregunta admin: "+this.rol);
+    return this.rol?.rol == Rol.ADMINISTRADOR;
+  }
+
+  isEntrenador(): boolean {
+    console.log("Pregunta entrenador: "+this.rol);
+    return this.rol?.rol == Rol.ENTRENADOR;
+  }
 
   get rolDeUsuario() {
     return this._rolDeUsuario;

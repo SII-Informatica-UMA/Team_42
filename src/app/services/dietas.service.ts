@@ -30,4 +30,8 @@ export class DietasService {
   aniadirDieta(dieta: Dieta): Observable<Dieta> {
     return this.backend.postDieta(dieta);
   }
+
+  getDietaById(id: number): Observable<Dieta> {
+    return this.backend.getDietaById(id);
+  }
 }
