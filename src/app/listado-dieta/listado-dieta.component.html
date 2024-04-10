@@ -28,7 +28,7 @@
             <td>{{dieta.id}}</td>
             <td>{{dieta.clientes}}</td>
             <td><button class="btn btn-sm btn-outline-primary m-1" (click)="editarDieta(dieta)"><i class="bi bi-pencil-fill"></i></button>
-              <button (click)="eliminarDieta(dieta.id)" class="btn btn-sm btn-outline-danger m-1"><i class="bi bi-trash-fill"></i></button></td>
+              <button class="btn btn-sm btn-outline-danger m-1" (click)="eliminarDieta(dieta.id)"><i class="bi bi-trash-fill"></i></button></td>
           </tr>
         </tbody>
       </table>
@@ -39,7 +39,7 @@
   <div>
     <div class="row">
       <div class="col-12" *ngIf="isCliente()">
-        
+
         <h1 class="text-center">Listado de dietas</h1>
         <table class="table table-striped">
           <thead>
@@ -56,7 +56,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let dieta of dietasCliente" class="align-middle">
+            <tr *ngFor="let dieta of this.dietasClientess" class="align-middle">
               <td>{{dieta.nombre}}</td>
               <td>{{dieta.objetivo}}</td>
               <td>{{dieta.descripcion}} </td>

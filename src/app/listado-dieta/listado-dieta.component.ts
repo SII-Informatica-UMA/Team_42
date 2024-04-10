@@ -15,6 +15,7 @@ import { Rol, UsuarioSesion } from '../entities/login';
   templateUrl: './listado-dieta.component.html',
   styleUrl: './listado-dieta.component.css'
 })
+
 export class ListadoDietaComponent {
   dietas: Dieta [] = [];
   dietasCliente: Dieta [] = [];
@@ -45,6 +46,12 @@ export class ListadoDietaComponent {
     return this.usuariosService.getUsuarioSesion();
   }
 
+  get dietasClientess() {
+    this.getDietasByClientId();
+    console.log(this.dietasCliente);
+    return this.dietasCliente;
+  }
+
   private dietaEditada(dieta: Dieta): void {
     this.dietasService.editarDietas(dieta).subscribe(() => {
       this.actualizarDietas();
@@ -65,7 +72,6 @@ export class ListadoDietaComponent {
       this.actualizarDietas();
     });
   }
-
 
   aniadirDieta(): void {
     let ref = this.modalService.open(FormularioDietaComponent);
