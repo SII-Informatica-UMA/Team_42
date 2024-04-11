@@ -33,7 +33,7 @@
     type="checkbox" *ngIf="!usuario.administrador">
     <label class="form-check-label" for="entrenador">Entrenador</label> <br> <br>
     <label for="numeros" *ngIf="usuario.entrenador">Identificador de los clientes (separados por comas) a los que este usuario entrena:</label> 
-    <textarea class="form-control" *ngIf="usuario.entrenador" id="clientes " [(ngModel)]="usuario.clientes" placeholder="1, 2, 3"></textarea> 
+    <textarea class="form-control" *ngIf="usuario.entrenador" id="clientes " [(ngModel)]="usuario.clientes" [(ngModel)]="usuario.clientes" [ngModelOptions]="{standalone: true}" placeholder="1, 2, 3"></textarea> 
   </form>
 </div>
 <div class="modal-footer">
