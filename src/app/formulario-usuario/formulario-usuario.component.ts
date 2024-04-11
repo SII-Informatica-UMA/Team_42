@@ -19,6 +19,10 @@ export class FormularioUsuarioComponent {
 
   constructor(public modal: NgbActiveModal) { }
 
+  ngOnInit(): void {
+    
+  }
+
   get usuario () {
     return this._usuario;
   }

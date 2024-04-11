@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Usuario, UsuarioImpl } from '../entities/usuario';
 import { Rol } from '../entities/login';
+//import { Observable, of, forkJoin, concatMap, lastValueFrom } from "rxjs";
 import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usuario.component';
 
 @Component({
@@ -16,10 +17,37 @@ import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usu
 })
 export class ListadoUsuarioComponent {
   usuarios: Usuario [] = [];
+  clientes: Usuario [] = [];
 
   constructor(private usuariosService: UsuariosService, private modalService: NgbModal) {
+    console.log('CLIENTES AHORA: ' + this.clientes);
     this.actualizarUsuarios();
-   }
+    if(this.isEntrenador()) this.getClientesEntrenador();
+  }
+
+  getClientesEntrenador () {
+      let entrenadorSesion = this.getUsuarioSesion();
+      let idEntrenador: number;
+      let arrayIdClientes: number[];
+      if(entrenadorSesion) idEntrenador = entrenadorSesion.id;
+      // Iteramos sobre todas las dietas que tenemos
+      this.usuarios.forEach((usuario: Usuario) => {
+        if (usuario.id == idEntrenador) {
+          arrayIdClientes = usuario.clientes;
+          this.crearArrayClientes(arrayIdClientes);
+        }
+      });
+  }
+
+  crearArrayClientes(arrayIdClientes: number[]) {
+    this.usuarios.forEach((usuario: Usuario) => {
+      if (arrayIdClientes.includes(usuario.id)) this.clientes.push(usuario);
+    });
+  }
+
+  getUsuarioSesion() {
+   return this.usuariosService.getUsuarioSesion();
+  }
 
   private get rol() {
     return this.usuariosService.rolCentro;
@@ -28,6 +56,11 @@ export class ListadoUsuarioComponent {
   isAdministrador(): boolean {
     console.log("Pregunta admin: "+this.rol);
     return this.rol?.rol == Rol.ADMINISTRADOR;
+  }
+
+  isEntrenador(): boolean {
+    console.log("Pregunta entrenador: "+JSON.stringify(this.rol));
+    return this.rol?.rol == Rol.ENTRENADOR;
   }
 
   ngOnInit(): void {

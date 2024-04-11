@@ -29,7 +29,31 @@
       </table>
       <button type="button" class="btn btn-outline-light bi bi-plus-lg" (click)="aniadirUsuario()"></button>
     </div>
-    <div class="col-12" *ngIf="!isAdministrador()">
-      <p class="alert alert-danger espacio">No tiene permisos para ver este contenido.</p>
+
+    <div class="col-12" *ngIf="isEntrenador()">
+      <h1 class="text-center text-white">Tus clientes</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Email</th>
+            <th>Id del usuario</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes" class="align-middle">
+            <td>{{cliente.nombre}}</td>
+            <td>{{cliente.apellido1}} {{cliente.apellido2}}</td>
+            <td>{{cliente.email}}</td>
+            <td>{{cliente.id}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- <div class="col-12" *ngIf="!isAdministrador() || !isEntrenador()">
+      <p class="alert alert-danger espacio">No tiene permisos para ver este contenido.</p> -->
   </div>
 </div>
