@@ -17,7 +17,7 @@ import { Rol, UsuarioSesion } from '../entities/login';
 })
 export class ListadoDietaComponent {
   dietas: Dieta [] = [];
-  dietaCliente: Dieta | undefined;
+  dietaUsuario: Dieta | undefined;
 
   constructor(private dietasService: DietasService, private usuariosService: UsuariosService, private modalService: NgbModal) {
     this.actualizarDietas();
@@ -30,17 +30,18 @@ export class ListadoDietaComponent {
   }
 
   ngOnInit(): void {
+    // Automáticamente, lanzamos la función getDietaByUserId para calcular cuales son las dietas que le corresponde al usuario
+    // Posteriormente, las mostramos en el html correspondiente (listado-dieta.component.html)
     let clienteActual = this.usuarioSesion?.id;
     if(clienteActual == undefined) {
-      // Si el cliente no está logeado, usamos -1
+      // Si el cliente no está logeado, usamos -1 para evitar errores
       clienteActual = -1;
     }
       this.dietasService.getDietaByUserId(clienteActual as number).subscribe(dieta => {
-      this.dietaCliente = dieta;
+      this.dietaUsuario = dieta;
     });
   }
 
-  
   // Función necesaria para poder obtener el id del usuario logeado
   get usuarioSesion() {
     return this.usuariosService.getUsuarioSesion();
@@ -67,7 +68,6 @@ export class ListadoDietaComponent {
     });
   }
 
-
   aniadirDieta(): void {
     let usuarioActual = this.usuarioSesion?.id;
     if(typeof(usuarioActual) == undefined) {
@@ -90,22 +90,18 @@ export class ListadoDietaComponent {
   }
 
   isDietaOfEntrenador(diet: Dieta): boolean {
-    console.log("Pregunta dieta de entrenador: "+diet.idEntrenador);
     return diet.idEntrenador == this.usuarioSesion?.id as number;
   }
 
   isAdministrador(): boolean {
-    console.log("Pregunta admin: "+this.rol);
     return this.rol?.rol == Rol.ADMINISTRADOR;
   }
 
   isEntrenador(): boolean {
-    console.log("Pregunta entrenador: "+this.rol);
     return this.rol?.rol == Rol.ENTRENADOR;
   }
 
   isCliente(): boolean {
-    console.log("Pregunta cliente: "+this.rol);
     return this.rol?.rol == Rol.CLIENTE;
   }
 }

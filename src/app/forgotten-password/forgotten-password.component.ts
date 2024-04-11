@@ -33,5 +33,4 @@ export class ForgottenPasswordComponent {
     this.mensaje = "Si la cuenta existe recibirá en su correo un  mensaje con instrucciones para recuperar la contraseña."
     this.error = false;
   }
-
 }

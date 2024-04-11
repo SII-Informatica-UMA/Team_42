@@ -19,12 +19,14 @@ export class DietasService {
     return this.backend.getDietas();
   }
 
-// Función para obtener la dieta asignada a un usuario por su ID
-getDietaByUserId(idCliente: number): Observable<Dieta> {
-  console.log('HOLA desde dietas.service.ts');
-  const dieta = this.backend.getDietaByUserId(idCliente);
-  return of(dieta);
-}
+  // Función para obtener la dieta asignada a un usuario por su ID
+  getDietaByUserId(idCliente: number): Observable<Dieta> {
+    if (idCliente == -1) {
+      console.log("El idCliente es -1. El usuario no existe o ha ocurrido un error inesperado");
+    }
+    const dieta = this.backend.getDietaByUserId(idCliente);
+    return of(dieta);
+  }
 
   getDietasByClientId(idCliente: number): Observable<Dieta[]> {
     console.log('HOLA desde dietas.service.ts');
