@@ -37,18 +37,12 @@ export class DietasComponent {
     if (usuarioSesion) this._rolDeUsuario = usuarioSesion.rol;
   }
 
-  /*
-  //funcion creada para el redireccionamiento
-  redirectToFormulario() :void{
-    this.router.navigate(['/formulario-dieta']);
-  }
-  */
-
+  // Devuelve el rol del usuario que está logeado
   get rolDeUsuario() {
     return this._rolDeUsuario;
   }
   
-  //metodo para añadir una dieta (la utilizo cuando se hace click para acceder al formulario de dietas)
+  // Metodo para añadir una dieta (la utilizo cuando se hace click para acceder al formulario de dietas)
   aniadirDieta(): void {
     let usuarioActual = this.usuarioSesion?.id;
     if(typeof(usuarioActual) == undefined) {
@@ -62,8 +56,6 @@ export class DietasComponent {
       this.dietasService.aniadirDieta(usuarioActual as number, dieta);
     }, (reason) => {});
   }
-
-
 
   // Función necesaria para poder obtener el id del usuario logeado
   get usuarioSesion() {

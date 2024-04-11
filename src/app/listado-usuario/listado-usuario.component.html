@@ -11,6 +11,7 @@
             <th>Administrador</th>
             <th>Entrenador</th>
             <th>Id del usuario</th>
+            <th>Clientes relacionados</th>
             <th></th>
           </tr>
         </thead>
@@ -22,6 +23,7 @@
             <td>{{usuario.administrador?'Sí':'No'}}</td>
             <td>{{usuario.entrenador? 'Sí':'No'}}</td>
             <td>{{usuario.id}}</td>
+            <td>{{usuario.clientes}}</td>
             <td><button class="btn btn-sm btn-outline-primary m-1" (click)="editarUsuario(usuario)"><i class="bi bi-pencil-fill"></i></button>
               <button (click)="eliminarUsuario(usuario.id)" class="btn btn-sm btn-outline-danger m-1"><i class="bi bi-trash-fill"></i></button></td>
           </tr>
@@ -53,7 +55,7 @@
       </table>
     </div>
 
-    <div class="col-12" *ngIf="isCliente()">
-      <p class="alert alert-danger espacio">No tiene permisos para ver este contenido.</p> 
-    </div>
+    <!-- <div class="col-12" *ngIf="!isAdministrador() || !isEntrenador()">
+      <p class="alert alert-danger espacio">No tiene permisos para ver este contenido.</p> -->
+  </div>
 </div>

@@ -7,8 +7,10 @@ import { from } from "rxjs";
 import * as jose from 'jose';
 import { FRONTEND_URI } from "../config/config";
 import { UsuarioSesion } from "../entities/login"
+
 // Este servicio imita al backend pero utiliza localStorage para almacenar los datos
 
+// Lista de usuarios previa para hacer pruebas
 const usuariosC: Usuario [] = [
   {
     id: 1,
@@ -34,6 +36,7 @@ const usuariosC: Usuario [] = [
   },
 ];
 
+// Lista de dietas previas para hacer pruebas
 const dietasC: Dieta[] = [
   {
     nombre: 'Dieta de Volumen',
@@ -114,16 +117,19 @@ export class BackendFakeService { //Fake
     }
   }
 
+  // Devuelve TODOS los usuarios almacenados en localStorage
   getUsuarios(): Observable<Usuario[]> {
     return of(this.usuarios);
   }
 
+  // Devuelve TODAS las dietas almacendas en localStorage
   getDietas(): Observable<Dieta[]> {
     return of(this.dietas);
   }
 
+  // Este método 
   getDietasByClientId (idCliente: number): Observable<Dieta[]> {
-    // En esta lista almacenaremos todas las dietas del cliente
+    // En esta lista iremos almacenando todas las dietas del cliente
     let dietasCliente: Dieta [] = [];
     console.log('HOLA desde backend.service.ts');  
     // Si el usuario no estuviera logeado, la llamada original usaría -1 como parametro
@@ -138,6 +144,7 @@ export class BackendFakeService { //Fake
     }
     return of (dietasCliente);
   }
+  
   // Función para obtener la dieta asignada a un usuario por su ID
   getDietaByUserId(userId: number): Dieta {
     const dieta = this.dietas.find(d => d.clientes && d.clientes.includes(userId));

@@ -5,20 +5,20 @@
       <h1 class="text-center text-white t">Listado de dietas</h1>
       <table class="table table-striped">
         <thead>
-          <tr class="text-center align-middle">
-            <th class="px-3">Nombre</th>
-            <th class="px-3">Objetivo</th>
-            <th class="px-3">Descripcion</th>
-            <th class="px-3">Observaciones</th>
-            <th class="px-3">Duración en días</th>
-            <th class="px-3">Recomendaciones</th>
-            <th class="px-3">ID Dieta</th>
-            <th class="px-3">ID Clientes Asociados</th>
+          <tr>
+            <th>Nombre</th>
+            <th>Objetivo</th>
+            <th>Descripcion</th>
+            <th>Observaciones</th>
+            <th>Duración en días</th>
+            <th>Recomendaciones</th>
+            <th>Id de la dieta</th>
+            <th>Id de los clientes asociados</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let dieta of dietas" class="text-center align-middle">
+          <tr *ngFor="let dieta of dietas" class="align-middle">
             <td>{{dieta.nombre}}</td>
             <td>{{dieta.objetivo}}</td>
             <td>{{dieta.descripcion}} </td>
@@ -27,7 +27,6 @@
             <td>{{dieta.recomendaciones}}</td>
             <td>{{dieta.id}}</td>
             <td>{{dieta.clientes}}</td>
-            <td *ngIf="!isDietaOfEntrenador(dieta)"></td>
             <td *ngIf="isDietaOfEntrenador(dieta)"><button class="btn btn-sm btn-outline-primary m-1" (click)="editarDieta(dieta)"><i class="bi bi-pencil-fill"></i></button>
               <button (click)="eliminarDieta(dieta.id)" class="btn btn-sm btn-outline-danger m-1"><i class="bi bi-trash-fill"></i></button></td>
           </tr>
@@ -39,41 +38,41 @@
 
     <div>
       <div class="row">
-        <div class="col-12" *ngIf="isCliente()">
-          <div class="col-12" *ngIf="!dietaCliente">
-            <p class="alert alert-danger espacio">El usuario no tiene ninguna dieta asignada.</p> 
+        <div class="col-12" *ngIf="isCliente() || isEntrenador()">
+          <div *ngIf="!dietaUsuario">
+            <p class="text-center">El usuario no tiene ninguna dieta asignada.</p>
           </div>
-          <div *ngIf="dietaCliente">
+          <div *ngIf="dietaUsuario">
             <h1 class="text-center text-white">Dieta Asignada</h1>
             <table class="table table-striped" id="vertical-table">
               <tbody>
                 <tr>
                   <th>Nombre:</th>
-                  <td>{{dietaCliente.nombre}}</td>
+                  <td>{{dietaUsuario.nombre}}</td>
                 </tr>
                 <tr>
                   <th>Objetivo:</th>
-                  <td>{{dietaCliente.objetivo}}</td>
+                  <td>{{dietaUsuario.objetivo}}</td>
                 </tr>
                 <tr>
                   <th>Descripcion:</th>
-                  <td>{{dietaCliente.descripcion}}</td>
+                  <td>{{dietaUsuario.descripcion}}</td>
                 </tr>
                 <tr>
                   <th>Observaciones:</th>
-                  <td>{{dietaCliente.observaciones}}</td>
+                  <td>{{dietaUsuario.observaciones}}</td>
                 </tr>
                 <tr>
                   <th>Alimentos:</th>
-                  <td><div *ngFor="let alimento of dietaCliente.alimentos">{{ alimento }}</div></td>
+                  <td><div *ngFor="let alimento of dietaUsuario.alimentos">{{ alimento }}</div></td>
                 </tr>
                 <tr>
                   <th>Duración en días:</th>
-                  <td>{{dietaCliente.duracionDias}}</td>
+                  <td>{{dietaUsuario.duracionDias}}</td>
                 </tr>
                 <tr>
                   <th>Recomendaciones:</th>
-                  <td>{{dietaCliente.recomendaciones}}</td>
+                  <td>{{dietaUsuario.recomendaciones}}</td>
                 </tr>
               </tbody>
             </table>

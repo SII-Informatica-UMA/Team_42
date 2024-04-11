@@ -5,7 +5,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Usuario, UsuarioImpl } from '../entities/usuario';
 import { Rol } from '../entities/login';
-//import { Observable, of, forkJoin, concatMap, lastValueFrom } from "rxjs";
 import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usuario.component';
 
 @Component({
@@ -20,7 +19,6 @@ export class ListadoUsuarioComponent {
   clientes: Usuario [] = [];
 
   constructor(private usuariosService: UsuariosService, private modalService: NgbModal) {
-    console.log('CLIENTES AHORA: ' + this.clientes);
     this.actualizarUsuarios();
     if(this.isEntrenador()) this.getClientesEntrenador();
   }
@@ -28,15 +26,18 @@ export class ListadoUsuarioComponent {
   getClientesEntrenador () {
       let entrenadorSesion = this.getUsuarioSesion();
       let idEntrenador: number;
+      // En este array almacenaremos los identificadores correspondientes a los clientes que el entrenador en la sesión actual entrena
       let arrayIdClientes: number[];
-      if(entrenadorSesion) idEntrenador = entrenadorSesion.id;
-      // Iteramos sobre todas las dietas que tenemos
-      this.usuarios.forEach((usuario: Usuario) => {
-        if (usuario.id == idEntrenador) {
-          arrayIdClientes = usuario.clientes;
-          this.crearArrayClientes(arrayIdClientes);
-        }
-      });
+      if(entrenadorSesion) {
+        idEntrenador = entrenadorSesion.id;
+        // Iteramos sobre todas las dietas que tenemos
+        this.usuarios.forEach((usuario: Usuario) => {
+          if (usuario.id == idEntrenador) {
+            arrayIdClientes = usuario.clientes;
+            this.crearArrayClientes(arrayIdClientes);
+          }
+        });
+      }
   }
 
   crearArrayClientes(arrayIdClientes: number[]) {
@@ -54,18 +55,11 @@ export class ListadoUsuarioComponent {
   }
 
   isAdministrador(): boolean {
-    console.log("Pregunta admin: "+this.rol);
     return this.rol?.rol == Rol.ADMINISTRADOR;
   }
 
   isEntrenador(): boolean {
-    console.log("Pregunta entrenador: "+JSON.stringify(this.rol));
     return this.rol?.rol == Rol.ENTRENADOR;
-  }
-
-  isCliente(): boolean {
-    console.log("Pregunta cliente: "+this.rol);
-    return this.rol?.rol == Rol.CLIENTE;
   }
 
   ngOnInit(): void {
