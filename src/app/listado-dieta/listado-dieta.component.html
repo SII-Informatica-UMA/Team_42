@@ -5,20 +5,20 @@
       <h1 class="text-center text-white t">Listado de dietas</h1>
       <table class="table table-striped">
         <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Objetivo</th>
-            <th>Descripcion</th>
-            <th>Observaciones</th>
-            <th>Duración en días</th>
-            <th>Recomendaciones</th>
-            <th>Id de la dieta</th>
-            <th>Id de los clientes asociados</th>
+          <tr class="text-center align-middle">
+            <th class="px-3">Nombre</th>
+            <th class="px-3">Objetivo</th>
+            <th class="px-3">Descripcion</th>
+            <th class="px-3">Observaciones</th>
+            <th class="px-3">Duración en días</th>
+            <th class="px-3">Recomendaciones</th>
+            <th class="px-3">ID Dieta</th>
+            <th class="px-3">ID Clientes Asociados</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let dieta of dietas" class="align-middle">
+          <tr *ngFor="let dieta of dietas" class="text-center align-middle">
             <td>{{dieta.nombre}}</td>
             <td>{{dieta.objetivo}}</td>
             <td>{{dieta.descripcion}} </td>
@@ -27,6 +27,7 @@
             <td>{{dieta.recomendaciones}}</td>
             <td>{{dieta.id}}</td>
             <td>{{dieta.clientes}}</td>
+            <td *ngIf="!isDietaOfEntrenador(dieta)"></td>
             <td *ngIf="isDietaOfEntrenador(dieta)"><button class="btn btn-sm btn-outline-primary m-1" (click)="editarDieta(dieta)"><i class="bi bi-pencil-fill"></i></button>
               <button (click)="eliminarDieta(dieta.id)" class="btn btn-sm btn-outline-danger m-1"><i class="bi bi-trash-fill"></i></button></td>
           </tr>
@@ -38,9 +39,9 @@
 
     <div>
       <div class="row">
-        <div class="col-12" *ngIf="isCliente() || isEntrenador()">
-          <div *ngIf="!dietaUsuario">
-            <p class="text-center">El usuario no tiene ninguna dieta asignada.</p>
+        <div class="col-12" *ngIf="isCliente()">
+          <div class="col-12" *ngIf="!dietaCliente">
+            <p class="alert alert-danger espacio">El usuario no tiene ninguna dieta asignada.</p> 
           </div>
           <div *ngIf="dietaUsuario">
             <h1 class="text-center text-white">Dieta Asignada</h1>
