@@ -36,40 +36,50 @@
     </div>
 
 
-  <div>
-    <div class="row">
-      <div class="col-12" *ngIf="isCliente()">
-        <div *ngIf="!dietaCliente">
-          <p class="text-center">El usuario no tiene ninguna dieta asignada.</p>
+    <div>
+      <div class="row">
+        <div class="col-12" *ngIf="isCliente()">
+          <div *ngIf="!dietaCliente">
+            <p class="text-center">El usuario no tiene ninguna dieta asignada.</p>
+          </div>
+          <div *ngIf="dietaCliente">
+            <h1 class="text-center">Dieta Asignada</h1>
+            <table class="table table-striped" id="vertical-table">
+              <tbody>
+                <tr>
+                  <th>Nombre:</th>
+                  <td>{{dietaCliente.nombre}}</td>
+                </tr>
+                <tr>
+                  <th>Objetivo:</th>
+                  <td>{{dietaCliente.objetivo}}</td>
+                </tr>
+                <tr>
+                  <th>Descripcion:</th>
+                  <td>{{dietaCliente.descripcion}}</td>
+                </tr>
+                <tr>
+                  <th>Observaciones:</th>
+                  <td>{{dietaCliente.observaciones}}</td>
+                </tr>
+                <tr>
+                  <th>Alimentos:</th>
+                  <td><div *ngFor="let alimento of dietaCliente.alimentos">{{ alimento }}</div></td>
+                </tr>
+                <tr>
+                  <th>Duración en días:</th>
+                  <td>{{dietaCliente.duracionDias}}</td>
+                </tr>
+                <tr>
+                  <th>Recomendaciones:</th>
+                  <td>{{dietaCliente.recomendaciones}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div *ngIf="dietaCliente">
-          <h1 class="text-center">Dieta Asignada</h1>
-        <table class="table table-striped" >
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Objetivo</th>
-              <th>Descripcion</th>
-              <th>Observaciones</th>
-              <th>Duración en días</th>
-              <th>Recomendaciones</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="align-middle">
-              <td>{{dietaCliente.nombre}}</td>
-              <td>{{dietaCliente.objetivo}}</td>
-              <td>{{dietaCliente.descripcion}} </td>
-              <td>{{dietaCliente.observaciones}}</td>
-              <td>{{dietaCliente.duracionDias}}</td>
-              <td>{{dietaCliente.recomendaciones}}</td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-        
       </div>
-  </div>
+    </div>
+    
 </div>
 
