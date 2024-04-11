@@ -17,6 +17,7 @@ const usuariosC: Usuario [] = [
     apellido2: 'Admin',
     email: 'admin@uma.es',
     administrador: true,
+    entrenador: false,
     password: 'admin'
   },
   {
@@ -26,6 +27,7 @@ const usuariosC: Usuario [] = [
     apellido2: 'Ramos',
     email: 'antonio@uma.es',
     administrador: false,
+    entrenador: false,
     password: '5678'
   },
 ];
