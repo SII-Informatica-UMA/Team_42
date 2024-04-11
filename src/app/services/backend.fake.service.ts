@@ -57,13 +57,36 @@ const dietasC: Dieta[] = [
     id: 0,
     idEntrenador: 1,
     clientes: []
-  }, 
+  },
+  {
+    nombre: 'Dieta de Adelgazamiento',
+    descripcion: 'Dieta enfocada en la pérdida de peso',
+    observaciones: 'Recomendado sólo para personas con un IMC superior a 30',
+    objetivo: 'Orientado a atletas de deportes de resistencia, luchadores que quieran bajar de división y personas con sobrepeso',
+    duracionDias: 60,
+    alimentos: [
+      "Batido de frutas con yogur bajo en grasa",
+      "Yogur con almendras, trozos de chocolate, frambuesas, moras, grosellas y avena",
+      "Ensalada de vegetales mixtos con pechuga de pollo a la plancha",
+      "Salmón al horno con espárragos al vapor",
+      "Zumo de vegetales natural",
+      "Ensalada de quinoa y vegetales",
+      "Taco de frijoles y aguacate",
+      "Curry de lentejas",
+      "Wrap de falafel",
+      "Bowl de Buddha con tofu"
+    ],
+    recomendaciones: "Priorizar entrenamientos largos de resistencia y rutinas de HIIT",
+    id: 1,
+    idEntrenador: 1,
+    clientes: []
+  } 
 ]
 
 @Injectable({
   providedIn: 'root'
 })
-export class BackendFakeService {
+export class BackendFakeService { //Fake
   private usuarios: Usuario [];
   private dietas: Dieta [];
   private forgottenPasswordTokens;

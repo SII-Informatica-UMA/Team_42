@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12" *ngIf="isAdministrador()">
-      <h1 class="text-center">Listado de usuarios</h1>
+      <h1 class="text-center text-white">Listado de usuarios</h1>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -11,6 +11,7 @@
             <th>Administrador</th>
             <th>Entrenador</th>
             <th>Id del usuario</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -26,9 +27,9 @@
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn btn-outline-success bi bi-plus-lg" (click)="aniadirUsuario()"></button>
+      <button type="button" class="btn btn-outline-light bi bi-plus-lg" (click)="aniadirUsuario()"></button>
     </div>
     <div class="col-12" *ngIf="!isAdministrador()">
-      <p class="alert alert-danger">No tiene permisos para ver este contenido.</p>
+      <p class="alert alert-danger espacio">No tiene permisos para ver este contenido.</p>
   </div>
 </div>

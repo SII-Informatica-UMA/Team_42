@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12" *ngIf="isAdministrador() || isEntrenador()">
-      <h1 class="text-center">Listado de dietas</h1>
+      <h1 class="text-center text-white t">Listado de dietas</h1>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -32,7 +32,7 @@
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn btn-outline-success bi bi-plus-lg" (click)="aniadirDieta()"></button>
+      <button type="button" class="btn btn-outline-light bi bi-plus-lg" (click)="aniadirDieta()"></button>
     </div>
 
 
@@ -77,9 +77,3 @@
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
-    
-</div>
-

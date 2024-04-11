@@ -1,1 +1,17 @@
+.custom-navbar{
+    margin-top: 3rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-radius: 20px;
+}
 
+.arriba{
+    margin-top: 3rem;
+}
+
+.navbar-nav div:hover{
+    background-color: darkgray;
+    border-radius: 20px;
+}
