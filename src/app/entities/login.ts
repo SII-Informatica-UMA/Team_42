@@ -27,6 +27,7 @@ export interface UsuarioSesion {
   apellido1: string;
   apellido2: string;
   email: string;
+  admin: boolean;
   jwt: string;
   roles: RolCentro[];
 }
