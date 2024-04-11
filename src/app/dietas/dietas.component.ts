@@ -51,11 +51,16 @@ export class DietasComponent {
   
   //metodo para añadir una dieta (la utilizo cuando se hace click para acceder al formulario de dietas)
   aniadirDieta(): void {
+    let usuarioActual = this.usuarioSesion?.id;
+    if(typeof(usuarioActual) == undefined) {
+      // Si el cliente no está logeado, usamos -1
+      usuarioActual = -1;
+    }
     let ref = this.modalService.open(FormularioDietaComponent);
     ref.componentInstance.accion = "Añadir";
     ref.componentInstance.dieta = new DietaImpl();
     ref.result.then((dieta: Dieta) => {
-      this.dietasService.aniadirDieta(this.usuariosService._id as number, dieta);
+      this.dietasService.aniadirDieta(usuarioActual as number, dieta);
     }, (reason) => {});
   }
 

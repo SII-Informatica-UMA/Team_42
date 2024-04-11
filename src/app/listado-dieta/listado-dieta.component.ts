@@ -44,8 +44,8 @@ export class ListadoDietaComponent {
 
  /*
   getDietasByClientId() {
-    let clienteActual = this.usuarioSesion?.id;
-    if(typeof(clienteActual) == undefined) {
+    let usuarioActual = this.usuarioSesion?.id;
+    if(typeof(usuarioActual) == undefined) {
       // Si el cliente no está logeado, usamos -1
       clienteActual = -1;
     }
@@ -82,11 +82,16 @@ export class ListadoDietaComponent {
 
 
   aniadirDieta(): void {
+    let usuarioActual = this.usuarioSesion?.id;
+    if(typeof(usuarioActual) == undefined) {
+      // Si el cliente no está logeado, usamos -1
+      usuarioActual = -1;
+    }
     let ref = this.modalService.open(FormularioDietaComponent);
     ref.componentInstance.accion = "Añadir";
     ref.componentInstance.usuario = new DietaImpl();
     ref.result.then((dieta: Dieta) => {
-      this.dietasService.aniadirDieta(this.usuariosService._id as number, dieta).subscribe(usuario => {
+      this.dietasService.aniadirDieta(usuarioActual as number, dieta).subscribe(usuario => {
         this.actualizarDietas();
       });
     }, (reason) => {});
@@ -95,6 +100,11 @@ export class ListadoDietaComponent {
   // Estas dos funciones las he hecho basandome en listado-usario.component.ts. Creo que en realidad tendría más sentido poner los roles en servicios si lo vamos a usar en más componentes
   private get rol() {
     return this.usuariosService.rolCentro;
+  }
+
+  isDietaOfEntrenador(diet: Dieta): boolean {
+    console.log("Pregunta dieta de entrenador: "+diet.idEntrenador);
+    return diet.idEntrenador == this.usuarioSesion?.id as number;
   }
 
   isAdministrador(): boolean {
