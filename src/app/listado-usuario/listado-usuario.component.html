@@ -53,7 +53,7 @@
       </table>
     </div>
 
-    <!-- <div class="col-12" *ngIf="!isAdministrador() || !isEntrenador()">
-      <p class="alert alert-danger espacio">No tiene permisos para ver este contenido.</p> -->
-  </div>
+    <div class="col-12" *ngIf="isCliente()">
+      <p class="alert alert-danger espacio">No tiene permisos para ver este contenido.</p> 
+    </div>
 </div>

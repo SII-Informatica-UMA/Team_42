@@ -63,6 +63,11 @@ export class ListadoUsuarioComponent {
     return this.rol?.rol == Rol.ENTRENADOR;
   }
 
+  isCliente(): boolean {
+    console.log("Pregunta cliente: "+this.rol);
+    return this.rol?.rol == Rol.CLIENTE;
+  }
+
   ngOnInit(): void {
     this.actualizarUsuarios();
   }
