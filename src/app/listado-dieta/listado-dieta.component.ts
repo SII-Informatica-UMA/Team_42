@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Dieta, DietaImpl } from '../entities/dieta';
@@ -17,7 +17,7 @@ import { Rol, UsuarioSesion } from '../entities/login';
 })
 export class ListadoDietaComponent {
   dietas: Dieta [] = [];
-  dietasCliente: Dieta [] = [];
+  dietaCliente: Dieta | undefined;
 
   constructor(private dietasService: DietasService, private usuariosService: UsuariosService, private modalService: NgbModal) {
     this.actualizarDietas();
@@ -29,13 +29,34 @@ export class ListadoDietaComponent {
     });
   }
 
-  getDietasByClientId(inputId: string) {
-    // Para evitar problemas con los tipos, ya que recogemos el valor desde el archivo html
-    // let inputValue: HTMLInputElement = document.getElementById('inputId') as HTMLInputElement;
-    // let numericValue: number = parseFloat(inputValue.value);
-    this.dietasService.getDietasByClientId(parseInt(inputId)).subscribe(dietas => {
+  ngOnInit(): void {
+    let clienteActual = this.usuarioSesion?.id;
+    console.log('Cliente: '+clienteActual);
+    if(clienteActual == undefined) {
+      // Si el cliente no está logeado, usamos -1
+      clienteActual = -1;
+    }
+      this.dietasService.getDietaByUserId(clienteActual as number).subscribe(dieta => {
+      this.dietaCliente = dieta;
+      console.log('HOLA desde listado.dieta.component.ts');
+    });
+  }
+
+ /*
+  getDietasByClientId() {
+    let usuarioActual = this.usuarioSesion?.id;
+    if(typeof(usuarioActual) == undefined) {
+      // Si el cliente no está logeado, usamos -1
+      clienteActual = -1;
+    }
+    this.dietasService.getDietasByClientId(clienteActual as number).subscribe(dietas => {
       this.dietasCliente = dietas;
     });
+  }*/
+  
+  // Función necesaria para poder obtener el id del usuario logeado
+  get usuarioSesion() {
+    return this.usuariosService.getUsuarioSesion();
   }
 
   private dietaEditada(dieta: Dieta): void {
@@ -61,11 +82,16 @@ export class ListadoDietaComponent {
 
 
   aniadirDieta(): void {
+    let usuarioActual = this.usuarioSesion?.id;
+    if(typeof(usuarioActual) == undefined) {
+      // Si el cliente no está logeado, usamos -1
+      usuarioActual = -1;
+    }
     let ref = this.modalService.open(FormularioDietaComponent);
     ref.componentInstance.accion = "Añadir";
     ref.componentInstance.usuario = new DietaImpl();
     ref.result.then((dieta: Dieta) => {
-      this.dietasService.aniadirDieta(this.usuariosService.id as number, dieta).subscribe(usuario => {
+      this.dietasService.aniadirDieta(usuarioActual as number, dieta).subscribe(usuario => {
         this.actualizarDietas();
       });
     }, (reason) => {});
@@ -76,18 +102,23 @@ export class ListadoDietaComponent {
     return this.usuariosService.rolCentro;
   }
 
+  isDietaOfEntrenador(diet: Dieta): boolean {
+    console.log("Pregunta dieta de entrenador: "+diet.idEntrenador);
+    return diet.idEntrenador == this.usuarioSesion?.id as number;
+  }
+
   isAdministrador(): boolean {
     console.log("Pregunta admin: "+this.rol);
     return this.rol?.rol == Rol.ADMINISTRADOR;
   }
 
   isEntrenador(): boolean {
-    console.log("Pregunta admin: "+this.rol);
+    console.log("Pregunta entrenador: "+this.rol);
     return this.rol?.rol == Rol.ENTRENADOR;
   }
 
   isCliente(): boolean {
-    console.log("Pregunta admin: "+this.rol);
+    console.log("Pregunta cliente: "+this.rol);
     return this.rol?.rol == Rol.CLIENTE;
   }
 }

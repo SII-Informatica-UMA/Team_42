@@ -17,7 +17,9 @@ const usuariosC: Usuario [] = [
     apellido2: 'Admin',
     email: 'admin@uma.es',
     administrador: true,
-    password: 'admin'
+    entrenador: false,
+    password: 'admin',
+    clientes: [],
   },
   {
     id: 2,
@@ -26,7 +28,9 @@ const usuariosC: Usuario [] = [
     apellido2: 'Ramos',
     email: 'antonio@uma.es',
     administrador: false,
-    password: '5678'
+    entrenador: false,
+    password: '5678',
+    clientes: [],
   },
 ];
 
@@ -51,7 +55,7 @@ const dietasC: Dieta[] = [
     ],
     recomendaciones: "Priorizar entrenamientos de alto volumen y carga máxima igual o muy próxima al 1 RM",
     id: 0,
-    idEntrenador: 0,
+    idEntrenador: 1,
     clientes: []
   }, 
 ]
@@ -95,18 +99,26 @@ export class BackendFakeService {
     return of(this.dietas);
   }
 
-  // Sacar las dientas por cliente
   getDietasByClientId (idCliente: number): Observable<Dieta[]> {
     // En esta lista almacenaremos todas las dietas del cliente
     let dietasCliente: Dieta [] = [];
-    // Iteramos sobre todas las dietas que tenemos
-    this.dietas.forEach((dieta: Dieta) => {
-      // Vemos si nuestro cliente tiene esta dieta
+    console.log('HOLA desde backend.service.ts');  
+    // Si el usuario no estuviera logeado, la llamada original usaría -1 como parametro
+    if (idCliente != -1) {
+      // Iteramos sobre todas las dietas que tenemos
+      this.dietas.forEach((dieta: Dieta) => {
+        // Vemos si nuestro cliente tiene esta dieta
         if (dieta.clientes.includes(idCliente)) {
           dietasCliente.push(dieta);
         }
-    });
+      });
+    }
     return of (dietasCliente);
+  }
+  // Función para obtener la dieta asignada a un usuario por su ID
+  getDietaByUserId(userId: number): Dieta {
+    const dieta = this.dietas.find(d => d.clientes && d.clientes.includes(userId));
+    return dieta as Dieta;
   }
 
   postUsuario(usuario: Usuario): Observable<Usuario> {

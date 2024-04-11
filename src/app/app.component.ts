@@ -3,6 +3,7 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { UsuariosService } from './services/usuarios.service';
+import { Rol, UsuarioSesion } from './entities/login';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,11 @@ import { UsuariosService } from './services/usuarios.service';
 })
 export class AppComponent {
   _rolIndex: number = 0
+  user : UsuarioSesion | undefined;
 
   constructor(private usuarioService: UsuariosService, private router: Router) {
     this.actualizarRol()
+    this.user = this.usuarioService.getUsuarioSesion();
   }
 
   get rolIndex() {
@@ -48,5 +51,10 @@ export class AppComponent {
     this.usuarioService.doLogout();
     this.actualizarRol();
     this.router.navigateByUrl('/login');
+  }
+
+  isAdministrador(): boolean | undefined {
+    return this.usuarioSesion?.admin;
+    
   }
 }
