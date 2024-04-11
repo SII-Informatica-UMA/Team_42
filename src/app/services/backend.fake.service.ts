@@ -18,7 +18,8 @@ const usuariosC: Usuario [] = [
     email: 'admin@uma.es',
     administrador: true,
     entrenador: false,
-    password: 'admin'
+    password: 'admin',
+    clientes: [],
   },
   {
     id: 2,
@@ -28,7 +29,8 @@ const usuariosC: Usuario [] = [
     email: 'antonio@uma.es',
     administrador: false,
     entrenador: false,
-    password: '5678'
+    password: '5678',
+    clientes: [],
   },
 ];
 

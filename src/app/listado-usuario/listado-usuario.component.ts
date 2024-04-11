@@ -51,6 +51,7 @@ export class ListadoUsuarioComponent {
     }, (reason) => {});
 
   }
+  
   private usuarioEditado(usuario: Usuario): void {
     this.usuariosService.editarUsuario(usuario).subscribe(() => {
       this.actualizarUsuarios();

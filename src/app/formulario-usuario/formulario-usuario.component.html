@@ -23,16 +23,17 @@
     <label for="rcontrasenia">Repita contraseña:</label>
     <input class="form-control" [class.is-invalid]="error" id="rcontrasenia" name="rcontrasenia" [(ngModel)]="rpassword"
       placeholder="(deje en blanco para mantener o generar)" type="password">
-
-      <div class="form-check">
-        <input class="form-check-input" id="administrador" name="rol" [(ngModel)]="usuario.administrador" value="false"
-          type="radio">
-        <label class="form-check-label" for="administrador">Administrador</label>
-        <br>
-        <input class="form-check-input" id="entrenador" name="rol" [(ngModel)]="usuario.entrenador" value="true"
-          type="radio">
-        <label class="form-check-label" for="entrenador">Entrenador</label>
-      </div>
+    <br>
+    <p>Puede seleccionar un rol adicional para este usuario (son mutualmente excluyentes): </p>
+    <input class="form-check-input" id="administrador" name="rol" [(ngModel)]="usuario.administrador"
+    type="checkbox" *ngIf="!usuario.entrenador">
+    <label class="form-check-label" for="administrador">Administrador</label>
+    <br>
+    <input class="form-check-input" id="entrenador" name="rol" [(ngModel)]="usuario.entrenador"
+    type="checkbox" *ngIf="!usuario.administrador">
+    <label class="form-check-label" for="entrenador">Entrenador</label> <br> <br>
+    <label for="numeros" *ngIf="usuario.entrenador">Identificador de los clientes (separados por comas) a los que este usuario entrena:</label> 
+    <textarea class="form-control" *ngIf="usuario.entrenador" id="clientes " [(ngModel)]="usuario.clientes" placeholder="1, 2, 3"></textarea> 
   </form>
 </div>
 <div class="modal-footer">
