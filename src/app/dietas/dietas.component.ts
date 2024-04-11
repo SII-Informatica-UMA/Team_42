@@ -26,7 +26,6 @@ Rol (login.ts). Ese es el que nos interesa para saber qué pantalla mostrar. */
 export class DietasComponent {
   _rolDeUsuario?: String;
   nuevaDieta: Dieta = new Dieta(); // Instancia de Dieta para el formulario
-  dietasCliente: Dieta [] = [];
 
 
   //Le he añadido al constructor el dietasService para poder implementar la funcion de añadirDietas con el formulario
@@ -64,17 +63,7 @@ export class DietasComponent {
     }, (reason) => {});
   }
 
-  getDietasByClientId() {
-    console.log('HOLA desde dietas.component');
-    let clienteActual = this.usuarioSesion?.id;
-    if(typeof(clienteActual) == undefined) {
-      // Si el cliente no está logeado, usamos -1
-      clienteActual = -1;
-    }
-    this.dietasService.getDietasByClientId(clienteActual as number).subscribe(dietas => {
-      this.dietasCliente = dietas;
-    });
-  }
+
 
   // Función necesaria para poder obtener el id del usuario logeado
   get usuarioSesion() {

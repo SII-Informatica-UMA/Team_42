@@ -7,11 +7,8 @@
     </div>
     
   } @else if (rolDeUsuario === 'cliente') {
-    <p class="text-white">Eres un cliente</p>
-    <div class="contenedor">
-      <a type="button" class="btn btn-outline-light"[routerLink]="'/listadoDietas'">Consulta aquí tus dietas</a>
-    </div>
-      
+    <p>Eres un cliente</p>
+      <a type="button" class="btn btn-outline-primary"[routerLink]="'/listadoDietas'">Consulta aquí tu dieta</a>
   } @else if(rolDeUsuario === 'administrador'){
     <div class="contenedor">
       <a type="button" class="btn btn-outline-light"[routerLink]="'/listadoDietas'">Listado (solo administradores)</a>

@@ -30,7 +30,11 @@ export class UsuariosService {
         email: obj.usuario.email,
         admin: obj.usuario.administrador, 
         // Aquí asigno todos los roles al administrador -> puede acceder a todas las vistas
-        roles: obj.usuario.administrador ? [{rol: Rol.ADMINISTRADOR}, {rol: Rol.ENTRENADOR}, {rol: Rol.CLIENTE}, {rol: Rol.GERENTE}]:[{rol: Rol.CLIENTE}],
+        roles: obj.usuario.administrador 
+        ? [{rol: Rol.ADMINISTRADOR}, {rol: Rol.ENTRENADOR}, {rol: Rol.CLIENTE}, {rol: Rol.GERENTE}]
+        : obj.usuario.entrenador 
+        ? [{rol: Rol.ENTRENADOR}]
+        : [{rol: Rol.CLIENTE}],
         jwt: obj.jwt
       };
     }));
