@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12" *ngIf="isAdministrador() || isEntrenador()">
-      <h1 class="text-center">Listado de dietas</h1>
+      <h1 class="text-center text-white t">Listado de dietas</h1>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -32,14 +32,14 @@
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn btn-outline-success bi bi-plus-lg" (click)="aniadirDieta()"></button>
+      <button type="button" class="btn btn-outline-light bi bi-plus-lg" (click)="aniadirDieta()"></button>
     </div>
 
 
   <div>
     <div class="row">
       <div class="col-12" *ngIf="isCliente()">
-        <div *ngIf="!dietaCliente">
+        <div *ngIf="!dietaCliente" class="alert alert-danger espacio" role="alert">
           <p class="text-center">El usuario no tiene ninguna dieta asignada.</p>
         </div>
         <div *ngIf="dietaCliente">

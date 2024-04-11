@@ -1,0 +1,13 @@
+.t{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+thead th , tbody tr{
+    padding: 0;
+    margin: 0;
+}
+
+.espacio{
+    margin-top: 3rem;
+}
