@@ -1,0 +1,24 @@
+<div>
+  @if (rolDeUsuario === 'entrenador') {
+    <div class="contenedor">
+      
+      <button type="button" class="btn btn-outline-light bi bi-plus-lg" [routerLink]="'/formulario-dieta'" (click)="aniadirDieta()"> Crear dieta</button>
+      <br>
+      <br>
+      <button type="button" class="btn btn-outline-light" [routerLink]="'/listadoDietas'">Listado de Dietas</button>
+      <router-outlet />
+    </div>
+    
+  } @else if (rolDeUsuario === 'cliente') {
+    <div class="contenedor">
+      <a type="button" class="btn btn-outline-light"[routerLink]="'/listadoDietas'">Consulta aquí tu dieta</a>
+    </div>
+  } @else if(rolDeUsuario === 'administrador'){
+    <div class="contenedor">
+      <a type="button" class="btn btn-outline-light"[routerLink]="'/listadoDietas'">Listado de Dietas</a>
+    </div>
+    
+  }
+  
+</div>
+

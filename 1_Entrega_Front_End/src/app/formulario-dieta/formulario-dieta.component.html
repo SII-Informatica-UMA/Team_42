@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{accion}} dieta </h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cierre usuario')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input class="form-control" id="nombre" [(ngModel)]="dieta.nombre" placeholder="nombre">
+        <label for="descripcion">Descripcion:</label>
+        <input class="form-control" id="descripcion" [(ngModel)]="dieta.descripcion" placeholder="descripcion">
+        <label for="duracionDias">Duración Días</label>
+        <input class="form-control" id="duracionDias" [(ngModel)]="dieta.duracionDias" placeholder="15">
+        <label for="objetivo">Objetivo:</label>
+        <input class="form-control" id="objetivo" [(ngModel)]="dieta.objetivo">
+        <label for="observaciones">Observaciones:</label>
+        <input class="form-control" id="observaciones" [(ngModel)]="dieta.observaciones">
+        <label for="alimentos">Alimentos (separados por coma):</label>
+        <textarea class="form-control" style="height: 160px;" id="alimentos" [(ngModel)]="dieta.alimentos" placeholder="Ejemplo: Pollo, arroz, brócoli"></textarea>
+        <label for="observaciones">Recomendaciones:</label>
+        <input class="form-control" id="recomendaciones" [(ngModel)]="dieta.recomendaciones">
+        <label for="numeros">Identificador de los clientes (separados por coma):</label>
+        <textarea class="form-control" id="clientes" [(ngModel)]="dieta.clientes" placeholder="1, 2, 3"></textarea>      
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="guardarDieta()">Guardar</button>
+  </div>
+  
