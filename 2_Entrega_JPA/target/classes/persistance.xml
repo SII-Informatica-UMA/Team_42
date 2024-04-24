@@ -24,7 +24,6 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <!-- Generar un archivo de esquema -->
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
-            <property name="javax.persistence.schema-generation.scripts.create-target" value="nuevo-esquema.sql"/>
         </properties>
     </persistence-unit>
 </persistence>
