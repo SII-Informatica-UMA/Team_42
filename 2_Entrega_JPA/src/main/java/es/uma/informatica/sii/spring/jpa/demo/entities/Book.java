@@ -59,8 +59,4 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", nombre=" + nombre + ", isbn=" + isbn + "]";
 	}
-	
-	
-	
-
 }
