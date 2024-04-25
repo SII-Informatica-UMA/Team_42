@@ -1,6 +1,4 @@
-/home/bitterman/Desktop/Main/Ingeniería Informática/3º CURSO/SEGUNDO SEMESTRE/Sistemas de Información para Internet/Team_42/2_Entrega_JPA/src/main/java/es/uma/informatica/sii/spring/jpa/demo/entities/Book.java
-/home/bitterman/Desktop/Main/Ingeniería Informática/3º CURSO/SEGUNDO SEMESTRE/Sistemas de Información para Internet/Team_42/2_Entrega_JPA/src/main/java/es/uma/informatica/sii/spring/jpa/demo/entities/Dieta.java
-/home/bitterman/Desktop/Main/Ingeniería Informática/3º CURSO/SEGUNDO SEMESTRE/Sistemas de Información para Internet/Team_42/2_Entrega_JPA/src/main/java/es/uma/informatica/sii/spring/jpa/demo/repositories/DietaRepository.java
-/home/bitterman/Desktop/Main/Ingeniería Informática/3º CURSO/SEGUNDO SEMESTRE/Sistemas de Información para Internet/Team_42/2_Entrega_JPA/src/main/java/es/uma/informatica/sii/spring/jpa/demo/repositories/BookRepository.java
-/home/bitterman/Desktop/Main/Ingeniería Informática/3º CURSO/SEGUNDO SEMESTRE/Sistemas de Información para Internet/Team_42/2_Entrega_JPA/src/main/java/es/uma/informatica/sii/spring/jpa/demo/Application.java
-/home/bitterman/Desktop/Main/Ingeniería Informática/3º CURSO/SEGUNDO SEMESTRE/Sistemas de Información para Internet/Team_42/2_Entrega_JPA/src/main/java/es/uma/informatica/sii/spring/jpa/demo/LineaComandos.java
+C:\Users\isabe\Documents\SII\Team_42\2_Entrega_JPA\src\main\java\es\uma\informatica\sii\spring\jpa\demo\Application.java
+C:\Users\isabe\Documents\SII\Team_42\2_Entrega_JPA\src\main\java\es\uma\informatica\sii\spring\jpa\demo\LineaComandos.java
+C:\Users\isabe\Documents\SII\Team_42\2_Entrega_JPA\src\main\java\es\uma\informatica\sii\spring\jpa\demo\entities\Dieta.java
+C:\Users\isabe\Documents\SII\Team_42\2_Entrega_JPA\src\main\java\es\uma\informatica\sii\spring\jpa\demo\repositories\DietaRepository.java

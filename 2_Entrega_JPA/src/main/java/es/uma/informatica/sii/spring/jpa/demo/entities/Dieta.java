@@ -17,6 +17,7 @@ public class Dieta {
     private String[] alimentos; 
     private String recomendaciones;
     private int idEntrenador;
+    @ElementCollection
     private int [] clientes;
 
     // GETTERS AND SETTERS
