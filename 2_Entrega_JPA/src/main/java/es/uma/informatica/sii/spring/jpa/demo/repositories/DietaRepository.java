@@ -7,15 +7,12 @@ import org.springframework.data.repository.query.Param;
 
 import es.uma.informatica.sii.spring.jpa.demo.entities.Dieta;
 
+
 public interface DietaRepository extends JpaRepository<Dieta, Integer> {
     List<Dieta> findByNombre(String nombre);
-    //List<Dieta> findByNombre(String title);
-	List<Dieta> findById(int id, String nombre);
-    List<Dieta> findByEntrenadorId(int id);
-
-
-    @Query("SELECT d FROM Dieta d WHERE :clienteId IN d.clientes")
-    Set<Dieta> findByClienteId(@Param("clienteId") int clienteId);
+	List<Dieta> findById(int id);
+    List<Dieta> findByIdEntrenador(int id);
+    
 	
 	@Query("select b from Dieta b where b.nombre = :nombre")
 	List<Dieta> miConsultaCompleja(@Param("nombre") String nombre);
