@@ -10,10 +10,5 @@ import es.uma.informatica.sii.spring.jpa.demo.entities.Dieta;
 
 public interface DietaRepository extends JpaRepository<Dieta, Integer> {
     List<Dieta> findByNombre(String nombre);
-	List<Dieta> findById(int id);
     List<Dieta> findByIdEntrenador(int id);
-    
-	
-	@Query("select b from Dieta b where b.nombre = :nombre")
-	List<Dieta> miConsultaCompleja(@Param("nombre") String nombre);
 }

@@ -1,6 +1,7 @@
 package es.uma.informatica.sii.spring.jpa.demo.entities;
 
 import java.util.Objects;
+import java.util.List;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,62 +15,84 @@ public class Dieta {
     private String descripcion;
     private String objetivo;
     private int duracionDias; 
-    private String[] alimentos; 
+    @ElementCollection
+    private List<String> alimentos; 
     private String recomendaciones;
+    private String observaciones;
     private int idEntrenador;
     @ElementCollection
-    private int [] clientes;
+    private List<Integer> clientes;
 
     // GETTERS AND SETTERS
+    public int getId() {
+		return this.id;
+	}
     public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+    public void setDescripcion(String desc) {
+        this.descripcion = desc;
+    }
+
 	public String getObjetivo() {
         return objetivo;
     }
     public void setObjetivo(String obj){
         this.objetivo = obj;
     }
+
     public int getDuracionDias() {
         return duracionDias;
     }
     public void setDuracionDias(int d) {
         this.duracionDias = d;
     }
-    public String[] getAlimentos() {
+
+    public List<String> getAlimentos() {
         return alimentos;
     }
-    public void setAlimentos(String[] alm) {
+    public void setAlimentos(List<String> alm) {
         this.alimentos = alm;
     }
+
     public String getRecomendaciones() {
         return recomendaciones;
     }
     public void setRecomendaciones(String recm) {
         this.recomendaciones = recm;
     }
+
     public int getIDEntrenador() {
         return idEntrenador;
     }
     public void setIDEntrenador(int id) {
         this.idEntrenador = id;
     }
-    public int[] getClientes() {
+
+    public List<Integer> getClientes() {
         return clientes;
     }
-    public void setClientes(int[] cli) {
+    public void setClientes(List<Integer> cli) {
         this.clientes = cli;
     }
 
+    public String getObservaciones() {
+        return observaciones;
+    }
+    public void setObservaciones(String ob) {
+        this.observaciones = ob;
+    }
 
 	@Override
 	public int hashCode() {

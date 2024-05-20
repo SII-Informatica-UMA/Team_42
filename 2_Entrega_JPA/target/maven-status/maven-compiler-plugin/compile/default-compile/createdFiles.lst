@@ -1,4 +1,8 @@
 es\uma\informatica\sii\spring\jpa\demo\LineaComandos.class
+es\uma\informatica\sii\spring\jpa\demo\exceptions\ElementoNoExisteException.class
+es\uma\informatica\sii\spring\jpa\demo\dtos\DietaDTO.class
+es\uma\informatica\sii\spring\jpa\demo\entities\Dieta.class
+es\uma\informatica\sii\spring\jpa\demo\dtos\DietaDTO$DietaDTOBuilder.class
 es\uma\informatica\sii\spring\jpa\demo\repositories\DietaRepository.class
 es\uma\informatica\sii\spring\jpa\demo\Application.class
-es\uma\informatica\sii\spring\jpa\demo\entities\Dieta.class
+es\uma\informatica\sii\spring\jpa\demo\exceptions\ElementoYaExisteException.class
