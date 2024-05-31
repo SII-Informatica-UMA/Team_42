@@ -18,14 +18,20 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriBuilderFactory;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import es.uma.informatica.sii.spring.jpa.demo.dtos.*;
+
 import java.net.URI;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -60,12 +66,12 @@ class DietaTests {
         //userDetails = jwtUtil.createUserDetails("1", "", List.of("ROLE_USER"));
     }
 
-     public UserDetails createUserDetails(String username, String password, List<String> roles) {
+    /* public UserDetails createUserDetails(String username, String password, List<String> roles) {
         List<SimpleGrantedAuthority> authorities = roles.stream()
             .map(SimpleGrantedAuthority::new)
             .toList();
         return new User(username, password, authorities);
-    }
+    }*/
 
     private URI uri(String scheme, String host, int port, String... paths) {
         UriBuilderFactory ubf = new DefaultUriBuilderFactory();
@@ -110,15 +116,87 @@ class DietaTests {
             .body(object);
         return peticion;
     }
+    
+    private RequestEntity<Void> putWithParameters(String scheme, String host, int port, String path, Map<String, Integer> queryParams) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(scheme + "://" + host + ":" + port + path);
+        queryParams.forEach(builder::queryParam);
+
+        URI uri = builder.build().encode().toUri();
+
+        return RequestEntity.delete(uri).build();
+    }
 
     @Nested 
     @DisplayName("Cuando no hay ninguna dieta")
     public class DietasVacías {
         
-        @Test
-    @DisplayName("Pruebecita")
-    public void testPrueba() {
-        assertTrue(true);
-    }
+        public class DietasVaciasTest {
+            @Test
+            @DisplayName("devuelve una lista de dietas vacía")
+            public void testGetDietas() {
+                var peticion = get("http", "localhost", port, "/dieta");
+
+                var respuesta = restTemplate.exchange(peticion,
+                    new ParameterizedTypeReference<List<Dieta>>() {
+                    });
+
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
+                assertThat(respuesta.getBody()).isEmpty();
+            }
+
+            @Test
+            @DisplayName("intenta modificar una dieta cuando la lista esta vacia")
+            public void testPutDietas() {
+                Map<String, Integer> queryParams = new HashMap<>();
+                queryParams.put("idDietas", 1);
+            
+                var peticion = putWithParameters("http", "localhost", port, "/dieta", queryParams);
+
+			    var respuesta = restTemplate.exchange(peticion,
+					new ParameterizedTypeReference<DietaDTO>() {});
+
+			    assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+            }
+
+            @Test
+            @DisplayName("intenta crear una dieta cuando la lista esta vacia")
+            public void testPostDietas() {
+                // Preparamos la dieta a insertar
+                var dieta = DietaDTO.builder()
+                .nombre("Adelgazamiento")
+                .build();
+                // Preparamos la petición con la dieta dentro
+                var peticion = post("http", "localhost",port, "/dieta", dieta);
+
+                // Invocamos al servicio REST 
+                var respuesta = restTemplate.exchange(peticion,Void.class);
+
+                // Comprobamos el resultado
+                assertThat(respuesta.getStatusCode().value()).isEqualTo(201);
+                assertThat(respuesta.getHeaders().get("Location").get(0))
+                .startsWith("http://localhost:" + port + "/dieta");
+
+                List<Dieta> dietasBD = dietaRepo.findAll();
+                assertThat(dietasBD).hasSize(1);
+                assertThat(respuesta.getHeaders().get("Location").get(0))
+                .endsWith("/" + dietasBD.get(0).getId());
+                assertThat(dieta.getNombre()).isEqualTo(dietasBD.get(0).getNombre());
+            }
+
+            @Test
+            @DisplayName("intenta modificar una dieta cuando la lista esta vacia")
+            public void testPutDietasById() {
+                var dieta = DietaDTO.builder()
+                .nombre("Adelgazamiento")
+                .build();
+            
+                var peticion = put("http", "localhost",port, "/dieta/1", dieta);
+
+			    var respuesta = restTemplate.exchange(peticion,
+					new ParameterizedTypeReference<DietaDTO>() {});
+
+			    assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+            }
+        }
     }
 }
