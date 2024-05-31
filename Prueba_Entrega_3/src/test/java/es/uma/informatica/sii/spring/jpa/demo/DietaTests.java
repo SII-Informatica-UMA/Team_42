@@ -232,8 +232,20 @@ class DietaTests {
             var respuesta = restTemplate.exchange(peticion, Void.class);
 
             assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
-            assertThat(alumnoRepository.count()).isEqualTo(1);
+            assertThat(dietaRepo.count()).isEqualTo(1);
         }
+
+        @Test
+        @DisplayName("devuelve error al acceder a una dieta concreta")
+        public void errorConDietaConcreta(){
+            var peticion = get("http", "localhost",port, "/dieta/1");
+			
+			var respuesta = restTemplate.exchange(peticion,
+					new ParameterizedTypeReference<DietaDTO>() {});
+			
+			assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+        }
+
         }
     }
 }
