@@ -23,8 +23,9 @@ public class Dieta {
     @Column(unique = true)
     private String nombre;
     private String descripcion;
+    private String observaciones;
     private String objetivo;
-    private int duracionDias; 
+    private int duracionDias;
     @ElementCollection
     private List<String> alimentos; 
     private String recomendaciones;
@@ -48,6 +49,15 @@ public class Dieta {
 	public String getDescripcion() {
 		return descripcion;
 	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    public String getObservaciones() {
+        return observaciones;
+    }
+    public void setObservaciones(String obs) {
+        this.observaciones = obs;
+    }
 	public String getObjetivo() {
         return objetivo;
     }
@@ -72,10 +82,10 @@ public class Dieta {
     public void setRecomendaciones(String recm) {
         this.recomendaciones = recm;
     }
-    public int getIDEntrenador() {
+    public int getIdEntrenador() {
         return idEntrenador;
     }
-    public void setIDEntrenador(int id) {
+    public void setIdEntrenador(int id) {
         this.idEntrenador = id;
     }
     public List<Integer> getClientes() {
@@ -84,10 +94,6 @@ public class Dieta {
     public void setClientes(List<Integer> cli) {
         this.clientes = cli;
     }
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
 
 	@Override
 	public int hashCode() {

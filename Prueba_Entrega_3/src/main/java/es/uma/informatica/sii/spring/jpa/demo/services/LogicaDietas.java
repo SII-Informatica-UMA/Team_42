@@ -55,7 +55,7 @@ public class LogicaDietas {
             }
         }
 
-        int idEntrenador = dieta.getIDEntrenador();
+        int idEntrenador = dieta.getIdEntrenador();
         // Hacer la llamada al servicio de entrenador
         var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
 
@@ -77,7 +77,7 @@ public class LogicaDietas {
         int idUsuarioAutenticado = jwtUtil.extractUserId(token);
 
         Dieta dieta = dietaRepo.findDietaByClienteId(idCliente).get();
-        int idEntrenador = dieta.getIDEntrenador();
+        int idEntrenador = dieta.getIdEntrenador();
 
         // Comprobar si el usuario autenticado es el cliente o el entrenador
         var cliente = restTemplate.getForObject("http://localhost:8080/cliente/" + idCliente, ClienteDTO.class );
@@ -133,7 +133,7 @@ public class LogicaDietas {
 
         if(dieta.isPresent()){
             
-            int idEntrenador = dieta.get().getIDEntrenador();
+            int idEntrenador = dieta.get().getIdEntrenador();
             // Hacer la llamada al servicio de entrenador
             var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
 
@@ -199,7 +199,7 @@ public class LogicaDietas {
             String token = authentication.getCredentials().toString();
             int idUsuarioAutenticado = jwtUtil.extractUserId(token);
 
-            int idEntrenador = opDieta.get().getIDEntrenador();
+            int idEntrenador = opDieta.get().getIdEntrenador();
             // Comprobar si el usuario autenticado es el entrenador
             var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
             if(entrenador.getIdUsuario() != idUsuarioAutenticado){
@@ -219,7 +219,7 @@ public class LogicaDietas {
                 n.setDuracionDias(dieta.getDuracionDias());
                 n.setAlimentos(dieta.getAlimentos());
                 n.setRecomendaciones(dieta.getRecomendaciones());
-                n.setIDEntrenador(dieta.getIDEntrenador());
+                n.setIDEntrenador(dieta.getIdEntrenador());
                 n.setClientes(dieta.getClientes());
             });
             return dietaRepo.save(opDieta.get());
