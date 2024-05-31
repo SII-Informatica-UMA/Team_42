@@ -32,6 +32,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DisplayName("En el servicio de Dietas")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+
 public class DietaTests {
     @Autowired
     private TestRestTemplate restTemplate;
@@ -42,11 +45,23 @@ public class DietaTests {
     @Autowired
     private DietaRepository dietaRepo;
 
+    @Autowired
+   // private JwtUtil jwtUtil;
+    //private UserDetails userDetails;
+    //private String token;
+
     @BeforeEach
     public void initializeDatabase() {
-        grupoRepository.deleteAll();
-        alumnoRepository.deleteAll();
+        dietaRepo.deleteAll();
+        //alumnoRepository.deleteAll();
     }
+
+    /*public userDetails createUserDetails(String username, String password, List<String> roles) {
+        List<SimpleGrantedAuthority> authorities = roles.stream()
+            .map(SimpleGRantedAuthority::new)
+            .toLIst();
+        return new User(username, password, authorities);
+    }*/
 
     private URI uri(String scheme, String host, int port, String... paths) {
         UriBuilderFactory ubf = new DefaultUriBuilderFactory();
@@ -63,6 +78,7 @@ public class DietaTests {
         URI uri = uri(scheme, host, port, path);
         var peticion = RequestEntity.get(uri)
             .accept(MediaType.APPLICATION_JSON)
+            //.header("Authorization", "Bearer " + token)
             .build();
         return peticion;
     }
@@ -93,6 +109,7 @@ public class DietaTests {
     @Nested 
     @DisplayName("Cuando no hay ninguna dieta")
     public class DietasVacías {
+        
         @Test
         @DisplayName("devuelve una lista de dietas vacía")
         public void devuelveDietas() {
