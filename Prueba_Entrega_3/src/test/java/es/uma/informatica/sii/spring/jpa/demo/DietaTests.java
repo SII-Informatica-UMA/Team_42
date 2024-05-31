@@ -197,6 +197,43 @@ class DietaTests {
 
 			    assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
             }
+
+            @Test
+        @DisplayName("devuelve una lista de dietas vacía")
+        public void testGetDieta() {
+            var peticion = get("http", "localhost", port, "/dieta");
+
+            var respuesta = restTemplate.exchange(peticion,
+                new ParameterizedTypeReference<List<Dieta>>() {
+                });
+
+            assertThat(respuesta.getStatusCode().value()).isEqualTo(200);
+            assertThat(respuesta.getBody()).isEmpty();
+        }
+
+        @Test
+        @DisplayName("no puede devolver una dieta concreta")
+        public void testGetDietaById() {
+            var peticion = get("http", "localhost", port, "/dieta/1");
+
+            var respuesta = restTemplate.exchange(peticion,
+                new ParameterizedTypeReference<List<DietaDTO>>() {
+                });
+
+            assertThat(respuesta.getStatusCode().value()).isEqualTo(400);
+            assertThat(respuesta.getBody()).isEmpty();
+        }
+
+        @Test
+        @DisplayName("no puede eliminar una dieta concreta")
+        public void testDeleteDietaById() {
+            var peticion = delete("http", "localhost", port, "/dieta/1");
+
+            var respuesta = restTemplate.exchange(peticion, Void.class);
+
+            assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
+            assertThat(alumnoRepository.count()).isEqualTo(1);
+        }
         }
     }
 }
