@@ -19,13 +19,9 @@ public class DietasController {
         this.logicaDietas = logicaDietas;
     }
 
-    @GetMapping
-    public List<Dieta> getDietas(@RequestParam Long idEntrenador) {
-        return logicaDietas.getDietas();
-    }
 
-    @GetMapping("/{id}")
-    public Optional<Dieta> getDietasEntrenador(@PathVariable Long id, @RequestParam(required = false) Integer idEntrenador, @RequestParam(required = false) Integer idCliente) {
+    @GetMapping()
+    public Optional<Dieta> getDietasEntrenador(@RequestParam(required = false) Integer idEntrenador, @RequestParam(required = false) Integer idCliente) {
         if(idEntrenador != null && idCliente != null) {
             throw new IllegalArgumentException("No se puede proporcionar idEntrenador e idCliente simultáneamente");
         }
@@ -41,10 +37,15 @@ public class DietasController {
         }
     }
 
+    @PutMapping()
+    public Dieta updateDietaCliente(@RequestBody Dieta dieta, @RequestParam Integer idCliente) {
+        return logicaDietas.updateDietaCliente(dieta, idCliente);
+    }
+
     @PostMapping()
-    public ResponseEntity<Dieta> addDieta(@RequestBody Dieta dieta, UriComponentsBuilder builder) {
-        var dietaCreada = logicaDietas.addDieta(dieta, dieta.getIDEntrenador());
-        return ResponseEntity.created(builder.path("/dieta/{id}").buildAndExpand(dietaCreada.getId()).toUri()).body(dietaCreada);
+    public ResponseEntity<Dieta> createDieta(@RequestBody Dieta dieta,@RequestParam Integer idEntrenador , UriComponentsBuilder uriBuilder) {
+        Dieta dietaCreada = logicaDietas.addDieta(dieta, idEntrenador.intValue());
+        return ResponseEntity.created(uriBuilder.path("/dieta/{id}").buildAndExpand(dietaCreada.getId()).toUri()).body(dietaCreada);
     }
 
     @GetMapping("/{id}")
@@ -52,10 +53,11 @@ public class DietasController {
         return logicaDietas.getDieta(id);
     }
 
-    /*@PutMapping()
-    public Dieta updateDieta(@RequestBody Dieta dieta, @RequestParam Long idCliente) {
-        return logicaDietas.updateDieta(dieta, idCliente);
-    }*/
+    @PutMapping("/{id}")
+    public Dieta updateDieta(@PathVariable Long id, @RequestBody Dieta dieta) {
+        return logicaDietas.updateDieta(dieta, id);
+    }
+    
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
