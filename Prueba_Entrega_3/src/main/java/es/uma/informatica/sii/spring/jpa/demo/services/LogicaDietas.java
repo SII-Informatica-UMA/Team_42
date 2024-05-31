@@ -1,10 +1,11 @@
 package es.uma.informatica.sii.spring.jpa.demo.services;
 
+import es.uma.informatica.sii.spring.jpa.demo.dtos.ClienteDTO;
 import es.uma.informatica.sii.spring.jpa.demo.dtos.EntrenadorDTO;
 import es.uma.informatica.sii.spring.jpa.demo.entities.Dieta;
 import es.uma.informatica.sii.spring.jpa.demo.repositories.DietaRepository;
 
-import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class LogicaDietas {
     private DietaRepository dietaRepo;
 
     @Autowired
-    private JwtUtil jwtUtil = new JwtUtil();
+    private JwtUtil jwtUtil;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -42,16 +43,37 @@ public class LogicaDietas {
         return false;
     }
 */
-    // Devuelve la dieta con el id dado si existe
+    // Devuelve la dieta con el id dado si existe y si el usuario autenticado es el entrenador o un cliente de la dieta
     public Dieta getDieta(Long id) {
         Optional<Dieta> optionalDieta = dietaRepo.findById(id);
         if (optionalDieta.isEmpty()) {
             throw new IllegalArgumentException("No existe la dieta con id " + id);
         }
 
-        Dieta dieta = optionalDieta.get();
+        // Obtener el id del usuario autenticado
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = authentication.getCredentials().toString();
+        int idUsuarioAutenticado = jwtUtil.extractUserId(token);
 
-        return dieta;
+        Dieta dieta = optionalDieta.get();
+        // Comprobar si el usuario autenticado es un cliente de la dieta
+        for(int idCliente:dieta.getClientes()){
+            var cliente = restTemplate.getForObject("http://localhost:8080/cliente/" + idCliente, ClienteDTO.class );
+            if(cliente.getIdUsuario() == idUsuarioAutenticado){
+                return dieta;
+            }
+        }
+
+        int idEntrenador = dieta.getIDEntrenador();
+        // Hacer la llamada al servicio de entrenador
+        var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
+
+        // Obtener el idUsuario del entrenador
+        int idUsuarioEntrenador = entrenador.getIdUsuario();
+        if(idUsuarioEntrenador == idUsuarioAutenticado){
+            return dieta;
+        }else{
+            throw new IllegalArgumentException("El usuario autenticado no tiene permisos para ver la dieta");}
     }
 
     // Devuelve todas las dietas de la base de datos
@@ -61,12 +83,38 @@ public class LogicaDietas {
 
     // Devuelve las dietas que tienen el idCliente en el array clientes[]
     public Optional<Dieta> getDietasByClienteId(int idCliente) {
-        return dietaRepo.findDietasByClienteId(idCliente);
+
+        // Obtener el id del usuario autenticado
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = authentication.getCredentials().toString();
+        int idUsuarioAutenticado = jwtUtil.extractUserId(token);
+
+        Dieta dieta = dietaRepo.findDietaByClienteId(idCliente).get();
+        int idEntrenador = dieta.getIDEntrenador();
+
+        // Comprobar si el usuario autenticado es el cliente o el entrenador
+        var cliente = restTemplate.getForObject("http://localhost:8080/cliente/" + idCliente, ClienteDTO.class );
+        var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
+        if(cliente.getIdUsuario() != idUsuarioAutenticado && entrenador.getIdUsuario() != idUsuarioAutenticado){
+            throw new IllegalArgumentException("El usuario autenticado no es el cliente ni el entrenador");
+            
+        }
+        return dietaRepo.findDietaByClienteId(idCliente);
     }
 
-    // Devuelve las dietas que tienen el idCliente en el array clientes[]
+    // Devuelve las dietas que tiene el entrenador con el id dado
     public Optional<Dieta> getDietasByEntrenadorId(int idEntrenador) {
         
+        // Obtener el id del usuario autenticado
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = authentication.getCredentials().toString();
+        int idUsuarioAutenticado = jwtUtil.extractUserId(token);
+
+        // Comprobar si el usuario autenticado es el entrenador
+        var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
+        if(entrenador.getIdUsuario() != idUsuarioAutenticado){
+            throw new IllegalArgumentException("El usuario autenticado no es el entrenador");
+        }
         return dietaRepo.findByIdEntrenador(idEntrenador);
     }
 
@@ -82,59 +130,95 @@ public class LogicaDietas {
 
     // Elimina la dieta con el id dado si existe y si el entrenador que la quiere borrar es el que la creo
     // Falta comprobar que el entrenador que la quiere borrar es el que la creo
+
+
     public void deleteDieta(Long id){
         var dieta = dietaRepo.findById(id);
 
         if(dieta.isPresent()){
             
             int idEntrenador = dieta.get().getIDEntrenador();
-        // Hacer la llamada al servicio de entrenador
-        var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
+            // Hacer la llamada al servicio de entrenador
+            var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
 
-        // Obtener el idUsuario del entrenador
-        int idUsuario = entrenador.getIdUsuario();
+            // Obtener el idUsuario del entrenador
+            int idUsuario = entrenador.getIdUsuario();
 
-        // Obtener el id del usuario autenticado
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String token = authentication.getCredentials().toString();
-        int idUsuarioAutenticado = jwtUtil.extractUserId(token);
+            // Obtener el id del usuario autenticado
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String token = authentication.getCredentials().toString();
+            int idUsuarioAutenticado = jwtUtil.extractUserId(token);
 
-        // Comprobar si el usuario autenticado es el entrenador
-        if (idUsuarioAutenticado != idUsuario) {
-            throw new IllegalArgumentException("El usuario autenticado no es el entrenador");
-        }
+            // Comprobar si el usuario autenticado es el entrenador
+            if (idUsuarioAutenticado != idUsuario) {
+                throw new IllegalArgumentException("El usuario autenticado no es el entrenador");
+            }
 
-        dietaRepo.deleteById(id);
+            dietaRepo.deleteById(id);
         }else{
             throw new IllegalArgumentException("No existe la dieta con id " + id);
         }
     }
 
-    // Devuelve la dieta con el id dado si existe
-    /*public Dieta getDieta(Long id){
-        var dieta = dietaRepo.findById(id);
-        if(dieta.isEmpty()){
-            throw new IllegalArgumentException("No existe la dieta con id " + id);
-        }else{
-            return dieta.get();
+    // Asigna una dieta a un cliente
+    public Dieta updateDieta(Dieta dieta, int idCliente){
+        if(dietaRepo.existsById(dieta.getId())){
+        var opDieta =  dietaRepo.findByNombre(dieta.getNombre());
+        if(opDieta.isPresent() && opDieta.get().getId()!= dieta.getId()){
+            throw new IllegalArgumentException("Ya existe una dieta con ese nombre");
         }
-    }*/
-
-    // Actualiza la dieta con los datos de la dieta dada si existe
-    /*public Dieta updateDieta(Dieta dieta, int idCliente){
+        opDieta = dietaRepo.findById(dieta.getId());
+        opDieta.ifPresent(n -> {
+            n.setNombre(dieta.getNombre());
+            // Assuming clientes is a List<Integer>
+            if(n.getClientes() == null) {
+                n.setClientes(new ArrayList<Integer>());
+            }
+            if(!n.getClientes().contains(idCliente)) {
+                n.getClientes().add(idCliente);
+            }
+        });
+        return dietaRepo.save(opDieta.get());
+        }else{
+            throw new IllegalArgumentException("Dieta no encontrada");
+        }
+    }
+    
+    
+    public Dieta updateDieta(Dieta dieta){
         if(dietaRepo.existsById(dieta.getId())){
             var opDieta =  dietaRepo.findByNombre(dieta.getNombre());
+            // Obtener el id del usuario autenticado
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String token = authentication.getCredentials().toString();
+            int idUsuarioAutenticado = jwtUtil.extractUserId(token);
+
+            int idEntrenador = dieta.getIDEntrenador();
+            // Comprobar si el usuario autenticado es el entrenador
+            var entrenador = restTemplate.getForObject("http://localhost:8080/entrenador/" + idEntrenador, EntrenadorDTO.class );
+            if(entrenador.getIdUsuario() != idUsuarioAutenticado){
+                throw new IllegalArgumentException("El usuario autenticado no es el entrenador");
+            }
+                
             if(opDieta.isPresent() && opDieta.get().getId()!= dieta.getId()){
                 throw new IllegalArgumentException("Ya existe una dieta con ese nombre");
+            
             }
+            
             opDieta = dietaRepo.findById(dieta.getId());
             opDieta.ifPresent(n -> {
                 n.setNombre(dieta.getNombre());
-                n.getClientes().add(idCliente);
+                n.setDescripcion(dieta.getDescripcion());
+                n.setObjetivo(dieta.getObjetivo());
+                n.setDuracionDias(dieta.getDuracionDias());
+                n.setAlimentos(dieta.getAlimentos());
+                n.setRecomendaciones(dieta.getRecomendaciones());
+                n.setIDEntrenador(dieta.getIDEntrenador());
+                n.setClientes(dieta.getClientes());
             });
             return dietaRepo.save(opDieta.get());
         }else{
             throw new IllegalArgumentException("Dieta no encontrada");
         }
-    }  */ 
+    }
 }

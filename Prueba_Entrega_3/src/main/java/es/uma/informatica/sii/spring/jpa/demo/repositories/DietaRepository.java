@@ -1,6 +1,5 @@
 package es.uma.informatica.sii.spring.jpa.demo.repositories;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +16,5 @@ public interface DietaRepository extends JpaRepository<Dieta, Long> {
 	
 
 	@Query("SELECT d FROM Dieta d WHERE :idCliente MEMBER OF d.clientes")
-	Optional<Dieta> findDietasByClienteId(@Param("idCliente") int idCliente);
+	Optional<Dieta> findDietaByClienteId(@Param("idCliente") int idCliente);
 }

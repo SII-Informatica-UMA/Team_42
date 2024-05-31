@@ -1,5 +1,6 @@
 package es.uma.informatica.sii.spring.jpa.demo.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -24,11 +25,12 @@ public class Dieta {
     private String descripcion;
     private String objetivo;
     private int duracionDias; 
-    private String[] alimentos; 
+    @ElementCollection
+    private List<String> alimentos; 
     private String recomendaciones;
     private int idEntrenador;
     @ElementCollection
-    private int[] clientes;
+    private List<Integer> clientes;
 
     // GETTERS AND SETTERS
     public Long getId() {
@@ -58,10 +60,10 @@ public class Dieta {
     public void setDuracionDias(int d) {
         this.duracionDias = d;
     }
-    public String[] getAlimentos() {
+    public List<String> getAlimentos() {
         return alimentos;
     }
-    public void setAlimentos(String[] alm) {
+    public void setAlimentos(List<String> alm) {
         this.alimentos = alm;
     }
     public String getRecomendaciones() {
@@ -76,11 +78,14 @@ public class Dieta {
     public void setIDEntrenador(int id) {
         this.idEntrenador = id;
     }
-    public int[] getClientes() {
+    public List<Integer> getClientes() {
         return clientes;
     }
-    public void setClientes(int[] cli) {
+    public void setClientes(List<Integer> cli) {
         this.clientes = cli;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
 
