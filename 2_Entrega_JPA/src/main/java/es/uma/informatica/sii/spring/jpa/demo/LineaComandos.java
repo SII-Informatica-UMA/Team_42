@@ -17,7 +17,7 @@ public class LineaComandos implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-		System.out.println("HOLAAAAAAAAAAA");
+		//System.out.println("HOLAAAAAAAAAAA");
 		for (String s: args) {
 			System.out.println(s);
 		}

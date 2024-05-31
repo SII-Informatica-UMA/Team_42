@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import es.uma.informatica.sii.fitness.usuarios.entities.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -50,7 +49,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
 
     @Value("${jwt.secret}")
-    private String secret = "secret";
+    private String secret;
 
     @Value("${jwt.token.validity}")
     private long tokenValidity;
@@ -103,10 +102,10 @@ public class JwtUtil {
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
-    public String generateToken(Usuario usuario) {
+    /*public String generateToken(Usuario usuario) {
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, usuario.getId().toString());
-    }
+    }*/
 
     //while creating the token -
     //1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID

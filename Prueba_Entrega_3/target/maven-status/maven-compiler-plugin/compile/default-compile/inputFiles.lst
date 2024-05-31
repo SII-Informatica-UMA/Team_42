@@ -1,7 +1,13 @@
-C:\Users\Jonay\Documents\SI Internet\Test_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\repositories\DietaRepository.java
-C:\Users\Jonay\Documents\SI Internet\Test_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\controllers\DietasController.java
-C:\Users\Jonay\Documents\SI Internet\Test_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\entities\Dieta.java
-C:\Users\Jonay\Documents\SI Internet\Test_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\services\LogicaDietas.java
-C:\Users\Jonay\Documents\SI Internet\Test_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\Application.java
-C:\Users\Jonay\Documents\SI Internet\Test_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\dtos\DietaDTO.java
-C:\Users\Jonay\Documents\SI Internet\Test_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\LineaComandos.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\security\JwtUtil.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\controllers\DietasController.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\services\LogicaDietas.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\repositories\DietaRepository.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\dtos\DietaNuevaDTO.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\security\JwtRequestFilter.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\security\SecurityConfguration.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\Application.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\dtos\EntrenadorDTO.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\dtos\JwtDTO.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\entities\Dieta.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\LineaComandos.java
+C:\Users\piter\OneDrive - Universidad de Málaga\Documentos\SI Internet\Team_42\Prueba_Entrega_3\src\main\java\es\uma\informatica\sii\spring\jpa\demo\dtos\DietaDTO.java

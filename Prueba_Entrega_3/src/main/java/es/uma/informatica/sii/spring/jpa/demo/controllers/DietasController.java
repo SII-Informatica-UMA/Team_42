@@ -23,10 +23,10 @@ public class DietasController {
         return logicaDietas.getDietas();
     }
 
-    @GetMapping("/{id}")
-    public List getDietasEntrenador(@PathVariable Long id, @RequestParam int idEntrenador) {
+   /*  @GetMapping("/{id}")
+    public List<Dieta> getDietasEntrenador(@PathVariable Long id, @RequestParam int idEntrenador) {
         return logicaDietas.getDieta(id);
-    }
+    }*/
 
     @PostMapping()
     public ResponseEntity<Dieta> addDieta(@RequestBody Dieta dieta, UriComponentsBuilder builder) {
@@ -39,10 +39,10 @@ public class DietasController {
         return logicaDietas.getDieta(id);
     }
 
-    @PutMapping()
+    /*@PutMapping()
     public Dieta updateDieta(@RequestBody Dieta dieta, @RequestParam Long idCliente) {
         return logicaDietas.updateDieta(dieta, idCliente);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
