@@ -10,13 +10,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.ApplicationContext;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriBuilder;
+
 import org.springframework.web.util.UriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -41,9 +45,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DisplayName("En el servicio de Dietas")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 
 class DietaTests {
     @Autowired
@@ -127,12 +131,11 @@ class DietaTests {
     }
 
     @Nested 
-    @DisplayName("Cuando no hay ninguna dieta")
+    @DisplayName("Cuando no hay ninguna dieta (Base de Datos Vacía)")
     public class DietasVacías {
         
-        public class DietasVaciasTest {
             @Test
-            @DisplayName("devuelve una lista de dietas vacía")
+            @DisplayName("Devuelve una lista de dietas vacía")
             public void testGetDietas() {
                 var peticion = get("http", "localhost", port, "/dieta");
 
@@ -145,7 +148,7 @@ class DietaTests {
             }
 
             @Test
-            @DisplayName("intenta modificar una dieta cuando la lista esta vacia")
+            @DisplayName("Intenta modificar una dieta cuando la lista esta vacia")
             public void testPutDietas() {
                 Map<String, Integer> queryParams = new HashMap<>();
                 queryParams.put("idDietas", 1);
@@ -159,7 +162,7 @@ class DietaTests {
             }
 
             @Test
-            @DisplayName("intenta crear una dieta cuando la lista esta vacia")
+            @DisplayName("Devuelve error cuando intenta crear una dieta cuando la lista esta vacia")
             public void testPostDietas() {
                 // Preparamos la dieta a insertar
                 var dieta = DietaDTO.builder()
@@ -184,7 +187,7 @@ class DietaTests {
             }
 
             @Test
-            @DisplayName("intenta modificar una dieta cuando la lista esta vacia")
+            @DisplayName("Devuelve error cuando intenta modificar una dieta cuando la lista esta vacia")
             public void testPutDietasById() {
                 var dieta = DietaDTO.builder()
                 .nombre("Adelgazamiento")
@@ -199,7 +202,7 @@ class DietaTests {
             }
 
             @Test
-        @DisplayName("devuelve una lista de dietas vacía")
+        @DisplayName("Devuelve una lista de dietas vacía")
         public void testGetDieta() {
             var peticion = get("http", "localhost", port, "/dieta");
 
@@ -212,7 +215,7 @@ class DietaTests {
         }
 
         @Test
-        @DisplayName("no puede devolver una dieta concreta")
+        @DisplayName("da error al solicitar una dieta concreta")
         public void testGetDietaById() {
             var peticion = get("http", "localhost", port, "/dieta/1");
 
@@ -225,7 +228,7 @@ class DietaTests {
         }
 
         @Test
-        @DisplayName("no puede eliminar una dieta concreta")
+        @DisplayName("devuelve error al intentar eliminar una dieta concreta")
         public void testDeleteDietaById() {
             var peticion = delete("http", "localhost", port, "/dieta/1");
 
@@ -236,16 +239,14 @@ class DietaTests {
         }
 
         @Test
-        @DisplayName("devuelve error al acceder a una dieta concreta")
-        public void errorConDietaConcreta(){
+        @DisplayName("devuelve error al intentar acceder a una dieta concreta")
+        public void testErrorConDietaConcreta(){
             var peticion = get("http", "localhost",port, "/dieta/1");
 			
 			var respuesta = restTemplate.exchange(peticion,
 					new ParameterizedTypeReference<DietaDTO>() {});
 			
 			assertThat(respuesta.getStatusCode().value()).isEqualTo(404);
-        }
-
         }
     }
 }
