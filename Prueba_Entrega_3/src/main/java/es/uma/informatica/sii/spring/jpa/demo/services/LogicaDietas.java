@@ -108,7 +108,7 @@ public class LogicaDietas {
     // Añade una dieta a la base de datos
     public Dieta addDieta(Dieta dieta, int idEntrenador){
         dieta.setId(null);
-        dieta.setIDEntrenador(idEntrenador);
+        dieta.setIdEntrenador(idEntrenador);
     
         // Obtener el id del usuario autenticado
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -219,7 +219,7 @@ public class LogicaDietas {
                 n.setDuracionDias(dieta.getDuracionDias());
                 n.setAlimentos(dieta.getAlimentos());
                 n.setRecomendaciones(dieta.getRecomendaciones());
-                n.setIDEntrenador(dieta.getIdEntrenador());
+                n.setIdEntrenador(dieta.getIdEntrenador());
                 n.setClientes(dieta.getClientes());
             });
             return dietaRepo.save(opDieta.get());
