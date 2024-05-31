@@ -18,4 +18,9 @@ public interface DietaRepository extends JpaRepository<Dieta, Long> {
 	
 	@Query("select b from Dieta b where b.nombre = :nombre")
 	List<Dieta> miConsultaCompleja(@Param("nombre") String nombre);
+
+	public interface DietaRepository extends JpaRepository<Dieta, Long> {
+		@Query("SELECT d FROM Dieta d WHERE :idCliente MEMBER OF d.clientes")
+		Optional<Dieta> findDietasByClienteId(@Param("idCliente") Long idCliente);
+	}
 }
